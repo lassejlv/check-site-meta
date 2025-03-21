@@ -28,7 +28,6 @@ export default function RootLayout(props: {
         mono.variable,
         `subpixel-antialiased bg-background`
       )}>
-        <ThemeSwitcherDev />
         {props.children}
       </body>
     </html>

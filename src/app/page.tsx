@@ -4,11 +4,11 @@ import { parseUrlFromQuery } from "./lib/parse-url";
 import type { SearchParamsContext } from "./lib/next-types";
 import { getResolvedMeta } from "./lib/get-metadata-field-data";
 import { MetaInfoPanel } from "./comp.meta-info";
-import { MetaPreviewPanel } from "./comp.meta-preview";
+import { LinkPreviewPanel } from "./comp.meta-preview";
 import { cn } from "lazy-cn";
 import { getVersion } from "./lib/version";
 import { ThemeSwitcher } from "./theme-switch";
-import { GoToUrlButton, InputForm } from "./_inputs/InputForm";
+import { InputForm } from "./_inputs/InputForm";
 import { RecentSuggestions } from "./_inputs/InputSuggestions";
 import { changelog } from "../../changelog"
 
@@ -43,11 +43,10 @@ export default async function Home(context: SearchParamsContext) {
     const url = parseUrlFromQuery(query.url)
     if (!url) return null
     const { html } = await fetchRoot(url.toString())
-    // remove script
     return html
   }
 
-  const random = Math.random()
+  const searchId = Math.random()
 
   return (
     <>
@@ -57,15 +56,15 @@ export default async function Home(context: SearchParamsContext) {
           <InputForm query={query} />
           <RecentSuggestions hidden={!!query.url} />
           <div className="flex flex-col gap-8">
-            <Suspense key={random} fallback={<Loading />}>
+            <Suspense key={searchId} fallback={<Loading />}>
               <MetaInfoPanel metadata={getMetadata()} head={getHead()} />
             </Suspense>
           </div>
         </div>
         <div className="flex flex-col items-center gap-8 pt-15! pb-40!">
           <Changelog hidden={!!query.url} />
-          <Suspense key={random}>
-            <MetaPreviewPanel metadata={getMetadata()} />
+          <Suspense key={searchId}>
+            <LinkPreviewPanel metadata={getMetadata()} />
           </Suspense>
         </div>
       </main>
@@ -100,29 +99,27 @@ function Footer(
   return (
     <footer {...props} className={cn(" w-full col-span-2 pb-[100vh] pt-10 border-t border-border bg-background shadow-2xl", props.className)}>
       <div className="container-md lg:container-2xl px-8 lg:px-12 xl:px-24 text-foreground-body flex flex-wrap gap-y-8">
-        <div className="flex flex-col grow">
-          <div className="text-[1rem] font-semibold tracking-tight leading-none font-mono">
+        <div className="flex flex-col grow font-mono">
+          <div className="text-[1rem] font-semibold tracking-tight leading-none ">
             npx check-site-meta
           </div>
-          <div className="text-xs font-normal">
-            v{getVersion()}
+          <div className="text-xs">
+            {getVersion()}
           </div>
           <div className="mt-10 flex flex-wrap gap-6">
-            {
-              [
-                ['npm', 'https://www.npmjs.com/package/check-site-meta'],
-                ['github', 'https://github.com/alfonsusac/check-site-meta'],
-                ['twitter', 'https://x.com/alfonsusac/status/1899798175512412648'],
-                ['discord', 'https://discord.gg/DCNgFtCm'],
-              ].map(e => (<a key={e[0]} className="button transition underline" href={e[1]} target="_blank">{e[0]}</a>))
-            }
+            {[
+              ['npm', 'https://www.npmjs.com/package/check-site-meta'],
+              ['github', 'https://github.com/alfonsusac/check-site-meta'],
+              ['twitter', 'https://x.com/alfonsusac/status/1899798175512412648'],
+              ['discord', 'https://discord.gg/DCNgFtCm'],
+            ].map(e => (
+              <a key={e[0]} className="button transition underline" href={e[1]} target="_blank">{e[0]}</a>
+            ))}
           </div>
           <div className="mt-4">
             Made by <a href="https://alfon.dev">alfonsusac</a> • ©{new Date().getFullYear()} alfonsusac. All rights reserved.
           </div>
         </div>
-        {/* Left */}
-        {/* Right */}
         <div className="shrink-0">
           <ThemeSwitcher />
         </div>
@@ -140,6 +137,10 @@ function Loading() {
   )
 }
 
+
+// Components -----------------------------
+
+
 function Changelog(props: {
   hidden?: boolean
 }) {
@@ -148,18 +149,16 @@ function Changelog(props: {
       <div className="min-h-0 closed:opacity-0 transition-all duration-300 delay-100" data-closed={props.hidden ? "" : undefined}>
         <div className="pt-20 pb-4 text-foreground-muted-3 font-medium">changelog</div>
         <div className="grid grid-cols-[6rem_1fr] gap-y-4 text-foreground-muted text-base">
-          {
-            Object.entries(changelog).map(([version, changes]) => (
-              <Fragment key={version}>
-                <div className="text-foreground-muted-3">{version}</div>
-                <ul className="">
-                  {changes.map((change, i) => (
-                    <li key={i} className="text-foreground-muted-2 py-0.5 list-['-___']">{change}</li>
-                  ))}
-                </ul>
-              </Fragment>
-            ))
-          }
+          {Object.entries(changelog).map(([version, changes]) => (
+            <Fragment key={version}>
+              <div className="text-foreground-muted-3">{version}</div>
+              <ul className="">
+                {changes.map((change, i) => (
+                  <li key={i} className="text-foreground-muted-2/80 py-0.5 list-['-___']">{change}</li>
+                ))}
+              </ul>
+            </Fragment>
+          ))}
         </div>
       </div>
     </div>

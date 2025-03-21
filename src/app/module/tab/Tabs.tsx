@@ -102,9 +102,7 @@ export function Tabs
               if (!tabContainer) return
               contentRect.current.height = (tabContainer.nextSibling as HTMLDivElement)?.getBoundingClientRect?.().height ?? null
             }}
-            className={cn(
-              "relative group ",
-            )}
+            className={cn("relative group")}
           >
             <div className="tab-item">
               {label.label}

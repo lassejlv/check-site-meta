@@ -121,8 +121,6 @@ function TwitterPreviewFrame({ children }: { children: React.ReactNode }) {
           "--image-noimg-fill": "rgb(113, 118, 123)",
           "--text-title": "rgb(231, 233, 234)",
           "--text-description": "rgb(113, 118, 123)",
-
-
         } as CSSProperties,
       }}
     >
@@ -143,12 +141,8 @@ function TwitterPreviewFrame({ children }: { children: React.ReactNode }) {
 
 
 export function MaterialSymbolsPartlyCloudyDayOutlineRounded(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}><path fill="currentColor" d="M12 5q-.425 0-.712-.288T11 4V2q0-.425.288-.712T12 1t.713.288T13 2v2q0 .425-.288.713T12 5m4.95 2.05q-.275-.275-.275-.7t.275-.7l1.4-1.425q.3-.3.712-.3t.713.3q.275.275.275.7t-.275.7L18.35 7.05q-.275.275-.7.275t-.7-.275M20 13q-.425 0-.713-.288T19 12t.288-.712T20 11h2q.425 0 .713.288T23 12t-.288.713T22 13zm-1.65 6.775l-1.4-1.425q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l1.425 1.4q.3.3.3.712t-.3.713t-.712.3t-.713-.3M5.65 7.05L4.225 5.625q-.275-.275-.275-.7t.275-.7q.3-.3.713-.3t.712.3l1.4 1.425q.275.275.275.7t-.275.7t-.7.275t-.7-.275M6 19h4.5q.625 0 1.063-.437T12 17.5t-.425-1.062t-1.05-.438H9.25l-.5-1.2q-.35-.825-1.1-1.312T6 13q-1.25 0-2.125.875T3 16t.875 2.125T6 19m0 2q-2.075 0-3.537-1.463T1 16t1.463-3.537T6 11q1.5 0 2.738.813T10.575 14q1.45 0 2.438 1.075T14 17.65q-.05 1.425-1.062 2.388T10.5 21zm8-3.35q-.125-.5-.25-.975t-.25-.975q1.125-.475 1.813-1.475T16 12q0-1.65-1.175-2.825T12 8q-1.5 0-2.625.975T8.05 11.45q-.5-.125-1.025-.225T6 11q.35-2.2 2.063-3.6T12 6q2.5 0 4.25 1.75T18 12q0 1.925-1.1 3.463T14 17.65M12.025 12"></path></svg>
-  )
+  return (<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}><path fill="currentColor" d="M12 5q-.425 0-.712-.288T11 4V2q0-.425.288-.712T12 1t.713.288T13 2v2q0 .425-.288.713T12 5m4.95 2.05q-.275-.275-.275-.7t.275-.7l1.4-1.425q.3-.3.712-.3t.713.3q.275.275.275.7t-.275.7L18.35 7.05q-.275.275-.7.275t-.7-.275M20 13q-.425 0-.713-.288T19 12t.288-.712T20 11h2q.425 0 .713.288T23 12t-.288.713T22 13zm-1.65 6.775l-1.4-1.425q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l1.425 1.4q.3.3.3.712t-.3.713t-.712.3t-.713-.3M5.65 7.05L4.225 5.625q-.275-.275-.275-.7t.275-.7q.3-.3.713-.3t.712.3l1.4 1.425q.275.275.275.7t-.275.7t-.7.275t-.7-.275M6 19h4.5q.625 0 1.063-.437T12 17.5t-.425-1.062t-1.05-.438H9.25l-.5-1.2q-.35-.825-1.1-1.312T6 13q-1.25 0-2.125.875T3 16t.875 2.125T6 19m0 2q-2.075 0-3.537-1.463T1 16t1.463-3.537T6 11q1.5 0 2.738.813T10.575 14q1.45 0 2.438 1.075T14 17.65q-.05 1.425-1.062 2.388T10.5 21zm8-3.35q-.125-.5-.25-.975t-.25-.975q1.125-.475 1.813-1.475T16 12q0-1.65-1.175-2.825T12 8q-1.5 0-2.625.975T8.05 11.45q-.5-.125-1.025-.225T6 11q.35-2.2 2.063-3.6T12 6q2.5 0 4.25 1.75T18 12q0 1.925-1.1 3.463T14 17.65M12.025 12"></path></svg>)
 }
-
-
 export function ClarityExclamationCircleSolid(props: SVGProps<SVGSVGElement>) {
   return (<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 36 36" {...props}><path fill="currentColor" d="M18 6a12 12 0 1 0 12 12A12 12 0 0 0 18 6m-1.49 6a1.49 1.49 0 0 1 3 0v6.89a1.49 1.49 0 1 1-3 0ZM18 25.5a1.72 1.72 0 1 1 1.72-1.72A1.72 1.72 0 0 1 18 25.5" className="clr-i-solid clr-i-solid-path-1"></path><path fill="none" d="M0 0h36v36H0z"></path></svg>)
 }
@@ -166,15 +160,21 @@ export async function getTwitterPreview(metadata: ResoledMetadata) {
   const data = {
     title: m.twitter.title.value ?? m.og.title.value,
     description: m.twitter.description.value ?? m.og.description.value,
-    image: m.twitter.image.resolvedUrl ?? m.og.images.values.at(-1)?.resolvedUrl ?? m.og.image.resolvedUrl,
+    imageUrl: m.twitter.image.value ?? m.og.images.values.at(-1)?.value ?? m.og.image.value,
+    resolvedImageUrl: m.twitter.image.resolvedUrl ?? m.og.images.values.at(-1)?.resolvedUrl ?? m.og.image.resolvedUrl,
     imageAlt: m.twitter.imageAlt.value ?? m.og.imageAlt.value,
     url: new URL(m.general.rawUrl.resolvedUrl!).host.replace('www.', ''),
-    type: m.twitter.card.value
+    type: m.twitter.card.value ?? (m.og.type.value ? "summary" : undefined)
   }
 
 
   if (!data.title) {
     messages.push(["error", "Title Metadata is required. Please provide either twitter:title or og:title."])
+    return { messages }
+  }
+
+  if (!m.twitter.card.value && !m.og.type.value) {
+    messages.push(["error", "Twitter card type (`twitter:card`) or (`og:type`) is required. Please provide either twitter:card or any og:type value."])
     return { messages }
   }
 
@@ -197,7 +197,7 @@ export async function getTwitterPreview(metadata: ResoledMetadata) {
       fallbackToSummary,
       image
     } = await (async () => {
-      if (!data.image) {
+      if (!data.resolvedImageUrl) {
         if (isLargeSummary) {
           messages.push(["error", "Image is not provided. Image is required for summary_large_image. Defaulting to summary."])
         } else {
@@ -206,12 +206,12 @@ export async function getTwitterPreview(metadata: ResoledMetadata) {
         return { fallbackToSummary: true }
       }
 
-      const res = await appFetch(data.image).catch((err) => {
+      const res = await appFetch(data.resolvedImageUrl).catch((err) => {
         // console.error("Error Procesing Twitter Image", err)
         return undefined
       })
       if (!res) {
-        messages.push(["error", `Unable to fetch image from ${ data.image }. Defaulting to summary.`])
+        messages.push(["error", `Unable to fetch image from ${ data.resolvedImageUrl }. Defaulting to summary.`])
         return { fallbackToSummary: true }
       }
 
@@ -226,7 +226,7 @@ export async function getTwitterPreview(metadata: ResoledMetadata) {
 
       const { buffer, imageSize: { width, height, type: format } } = imageSizeRes
 
-      const imgData = { width, height, format, size: buffer.length, url: data.image }
+      const imgData = { width, height, format, size: buffer.length, url: data.resolvedImageUrl }
 
       if (!width || !height || !format) {
         messages.push(["error", `Unable to read image metadata.${ isLargeSummary ? " Defaulting to summary." : "" }`])
@@ -255,6 +255,14 @@ export async function getTwitterPreview(metadata: ResoledMetadata) {
         messages.push(["error", `Image must be smaller than 4096x4096px (Current: ${ width }x${ height }).${ isLargeSummary ? " Defaulting to summary." : "" }`])
         return { fallbackToSummary: true }
       }
+
+      try {
+        new URL(data.imageUrl ?? "")
+      } catch (error) {
+        messages.push(["error", `Image URL needs to be an absolute URL for the image to show up properly in Twitter preview. Defaulting to summary with no image.`])
+        return { fallbackToSummary: true, image: null }
+      }
+
 
       // Docs said 120x120 but ive seen 109x109 works...
 

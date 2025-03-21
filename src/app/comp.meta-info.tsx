@@ -11,19 +11,10 @@ import { OpengraphMetadata } from "./_view/OpenGraph";
 import { cn } from "lazy-cn";
 import { getImageSizeFromResponse } from "./lib/image-size";
 
-function MetaCard({ className, ...props }: ComponentProps<"section">) {
-  return (
-    <section className={cn("card fadeIn-0", className)}>
-      <div key={Math.random()} className="card-content meta-info-grid fadeBlurIn-100">
-        {props.children}
-      </div>
-    </section>
-  )
-}
-
-export async function MetaInfoPanel(
-  props: { metadata: Promise<ResoledMetadata | null>, head: Promise<string | null> }
-) {
+export async function MetaInfoPanel(props: {
+  metadata: Promise<ResoledMetadata | null>,
+  head: Promise<string | null>,
+}) {
   try {
     const metadata = await props.metadata;
     if (!metadata) return null
@@ -39,7 +30,6 @@ export async function MetaInfoPanel(
           tab("Open Graph", <>Open Graph</>, <MetaCard><OpengraphMetadata m={metadata} /></MetaCard>),
           tab("Twitter", <>Twitter</>, <MetaCard><TwitterMetadata m={metadata} /></MetaCard>),
           tab("Icons", <>Icons</>, <MetaCard><IconMetadata data={metadata} /></MetaCard>),
-          // tab("JSON-LD", <>JSON-LD</>, <MetaCard></MetaCard>),
           tab("Raw", <>Raw</>, <MetaCard><pre className="overflow-auto text-xs">{head?.split('<body')[0].replaceAll('/><', '/>\n<').replaceAll(/<style[^>]*>[\s\S]*?<\/style>/g, '<style>...</style>')}</pre></MetaCard >),
         ]} />
     );
@@ -47,6 +37,16 @@ export async function MetaInfoPanel(
     console.log(error)
     return <ErrorCard error={error} />;
   }
+}
+
+function MetaCard({ className, ...props }: ComponentProps<"section">) {
+  return (
+    <section className={cn("card fadeIn-0", className)}>
+      <div key={Math.random()} className="card-content meta-info-grid fadeBlurIn-100">
+        {props.children}
+      </div>
+    </section>
+  )
 }
 
 function SummaryMetadata(props: { m: ResoledMetadata }) {

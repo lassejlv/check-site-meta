@@ -21,11 +21,12 @@ program
     .argument("[input]", "URL to check, or localhost port to check (optional)")
     .option("-p, --port <number>", "Specify port number", (value) => parseInt(value, 10))
     .option("--showdir", "Show directory path of where the command is run")
-    .option("--no-analytics", "Disable analytics tracking")
+    .option("--no-analytics", "Disable analytics tracking. You can also set DO_NO_TRACK=true in your environment")
     .parse(process.argv);
 const options = program.opts();
 // Analytics
-if (!options.noAnalytics) {
+const skipAnalytics = options.noAnalytics || ['true', '1', 'yes', 'y'].includes(String(process.env['DO_NOT_TRACK'] ?? '').toLowerCase());
+if (!skipAnalytics) {
     fetch(`https://alfon.dev/api/public/analytics`, {
         method: 'POST',
         body: JSON.stringify({
@@ -66,7 +67,7 @@ nextProcess.stdout.on("data", (data) => {
         return;
     }
     if (message.startsWith("   - Local:")) {
-        process.stdout.write(`   - Local: http://localhost:${PORT}
+        process.stdout.write(`   - Local: http://localhost:${PORT}${skipAnalytics ? " (Analytics disabled)" : ""}
    - Starting... 🚀\n\n`);
         return;
     }

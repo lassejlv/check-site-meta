@@ -1,4 +1,18 @@
 export const changelog = {
+  "0.2.24": [
+    "Improved animation: url input transition & suggestion lists",
+    "Fixed hover suggestion animation",
+    "Added autofocus on page load",
+  ],
+  "0.2.23": [
+    "Fixed twitter image not crashing when there is no og:type or twitter:card",
+  ],
+  "0.2.22": [
+    "Fixed Twitter Image not crashing when using relative path for og image"
+  ],
+  "0.2.21": [
+    "Added support for DO_NOT_TRACK environment variable to disable analytics",
+  ],
   "0.2.20": [
     "Added header when url is empty",
     "Added fade in on meta info",

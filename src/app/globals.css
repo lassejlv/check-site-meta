@@ -298,17 +298,25 @@ body {
   background: linear-gradient(
     to bottom,
     light-dark(var(--color-slate-500), var(--color-neutral-100)),
-    light-dark(var(--color-slate-800), var(--color-zinc-400))
+    light-dark(var(--color-slate-800), var(--color-neutral-500))
   );
   @apply bg-clip-text text-transparent;
 }
 
+/* Misc */
+
 @utility input-box-shadow {
   @apply shadow-lg
   shadow-[light-dark(--alpha(var(--color-slate-200)/0.2),--alpha(var(--color-neutral-950)/0.3))]
-  hover:shadow-[light-dark(--alpha(var(--color-slate-200)/0.8),--alpha(var(--color-neutral-950)/0.8))]
-  outline-0 hover:outline-4 outline-transparent hover:outline-focus/50
+  hover:shadow-[light-dark(--alpha(var(--color-slate-200)/0.8),--alpha(var(--color-neutral-950)/0.8))];
 }
+
+@utility input-outline-hover {
+  @apply outline-0 hover:outline-4 outline-transparent hover:outline-focus/50;
+}
+
+
+
 
 /* Animations ----------------------------- */
 
@@ -344,7 +352,6 @@ body {
   animation: fadeBlurIn 0.2s ease-out both;
   animation-delay: calc(--value(integer) * 1ms);
 }
-
 
 @keyframes fadeInFromLeft {
   from {
