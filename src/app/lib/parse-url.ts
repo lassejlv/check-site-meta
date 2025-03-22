@@ -1,8 +1,9 @@
 import { AppError } from "../module/error/error-primitives"
 
-export function parseUrlFromQuery(query: string | string[] | undefined) {
+export function parseUrlFromQuery(query?: string | string[]) {
   if (!query) return null
 
+  // Infer URL
   let inferredUrl = Array.isArray(query) ? query[0] : query
 
   if (inferredUrl.startsWith("localhost")) {
@@ -15,21 +16,19 @@ export function parseUrlFromQuery(query: string | string[] | undefined) {
     inferredUrl = "http://" + inferredUrl
   }
 
-  const rawUrl = inferredUrl
-
+  // Validate URL
   if (
-    !rawUrl.startsWith("http://") &&
-    !rawUrl.startsWith("https://") &&
-    !rawUrl.startsWith("localhost:")
+    !inferredUrl.startsWith("http://") &&
+    !inferredUrl.startsWith("https://") &&
+    !inferredUrl.startsWith("localhost:")
   ) {
     throw new AppError(new Error(), "input", "Invalid URL", "URL must have valid protocol with http:// or https:// - or no protocol at all", [])
   }
 
   try {
-    const tempParsedURL = new URL(rawUrl)
-    return tempParsedURL
+    // Final check
+    return new URL(inferredUrl)
   } catch (error) {
     throw new AppError(new Error(), "input", "Invalid URL", "URL must start with http:// or https://", [JSON.stringify(error)])
   }
-
 }

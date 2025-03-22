@@ -1,6 +1,6 @@
 {
   "name": "check-site-meta",
-  "description": "Check site meta tags",
+  "description": "Check site meta tags locally",
   "version": "0.2.24",
   "type": "module",
   "bin": {

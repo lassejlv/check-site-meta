@@ -3,8 +3,8 @@ import { getRawMeta, fetchRoot } from "./lib/get-metadata";
 import { parseUrlFromQuery } from "./lib/parse-url";
 import type { SearchParamsContext } from "./lib/next-types";
 import { getResolvedMeta } from "./lib/get-metadata-field-data";
-import { MetaInfoPanel } from "./comp.meta-info";
-import { LinkPreviewPanel } from "./comp.meta-preview";
+import { MetaInfoPanel } from "./page.meta-info";
+import { LinkPreviewPanel } from "./page.link-preview";
 import { cn } from "lazy-cn";
 import { getVersion } from "./lib/version";
 import { ThemeSwitcher } from "./theme-switch";
@@ -50,18 +50,22 @@ export default async function Home(context: SearchParamsContext) {
 
   return (
     <>
-      <main className="container-sm lg:container-2xl px-8 lg:px-12 xl:px-24 *:py-12 font-medium lg:grid lg:grid-cols-2 gap-x-8 font-sans">
-        <div className="flex flex-col min-h-screen">
+      <main className={cn(
+        "container-sm lg:container-2xl font-medium  font-sans",
+        "px-8 lg:px-12 xl:px-24 pb-40",
+        "lg:grid lg:grid-cols-2 gap-x-8"
+      )}>
+        <div className="flex flex-col min-h-screen py-12">
           <Header hidden={!!query.url} />
           <InputForm query={query} />
           <RecentSuggestions hidden={!!query.url} />
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-8 mt-8">
             <Suspense key={searchId} fallback={<Loading />}>
               <MetaInfoPanel metadata={getMetadata()} head={getHead()} />
             </Suspense>
           </div>
         </div>
-        <div className="flex flex-col items-center gap-8 pt-15! pb-40!">
+        <div className="flex flex-col items-center gap-8 pt-15 pb-12">
           <Changelog hidden={!!query.url} />
           <Suspense key={searchId}>
             <LinkPreviewPanel metadata={getMetadata()} />
@@ -79,7 +83,7 @@ export default async function Home(context: SearchParamsContext) {
 function Header(props: {
   hidden: boolean
 }) {
-  return <header className="grid grid-rows-[1fr] closed:grid-rows-[0fr] group overflow-hidden transition-[grid-template-rows] duration-700" data-closed={props.hidden ? "" : undefined}>
+  return <header className="collapsible-row-grid-700 closed:collapse-row group" data-closed={props.hidden ? "" : undefined}>
     <div className="min-h-0">
       <div className="mb-12 mt-20 text-center lg:text-start flex flex-col items-center lg:block g-closed:opacity-0 g-closed:translate-y-10 transition duration-700">
         <div className="text-6xl tracking-[-0.08em] font-mono header-fill font-bold">
@@ -93,9 +97,7 @@ function Header(props: {
   </header>
 }
 
-function Footer(
-  props: ComponentProps<"footer">
-) {
+function Footer(props: ComponentProps<"footer">) {
   return (
     <footer {...props} className={cn(" w-full col-span-2 pb-[100vh] pt-10 border-t border-border bg-background shadow-2xl", props.className)}>
       <div className="container-md lg:container-2xl px-8 lg:px-12 xl:px-24 text-foreground-body flex flex-wrap gap-y-8">

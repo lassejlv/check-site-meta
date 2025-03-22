@@ -8,14 +8,12 @@ import readline from "readline";
 import { program } from "commander";
 import { readFileSync } from "fs";
 
-
 // Get the directory of the current module (equivalent to __dirname in CommonJS)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const packageJson = JSON.parse(readFileSync(path.join(__dirname, "../package.json"), "utf-8"));
-
 // Read version from package.json using import
+const packageJson = JSON.parse(readFileSync(path.join(__dirname, "../package.json"), "utf-8"));
 const NAME = packageJson['name'];
 const VERSION = packageJson['version'];
 const DESCRIPTION = packageJson['description'];

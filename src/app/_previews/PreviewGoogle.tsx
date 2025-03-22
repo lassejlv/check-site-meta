@@ -105,8 +105,8 @@ export async function PreviewGoogle({ metadata, className, ...props }: Component
             <PreviewThemeSwitcher
               themeId="t-google"
               themes={[
-              tab("default", <MaterialSymbolsLightModeOutline />),
-              tab("dark", <MaterialSymbolsDarkModeOutline />),
+                { key: "default", icon: <MaterialSymbolsLightModeOutline /> },
+                { key: "dark", icon: <MaterialSymbolsDarkModeOutline /> },
             ]} />
           </PreviewMenu>
         </>

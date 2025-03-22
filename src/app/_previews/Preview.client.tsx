@@ -3,7 +3,8 @@
 import { cn } from "lazy-cn"
 import { useSearchParams } from "next/navigation"
 import { useEffect, type ComponentProps, type CSSProperties, type ReactNode } from "react"
-import { TabList } from "../module/tab/TabList"
+import { TabList } from "../module/tab/TabRoot"
+import { useAppNavigation } from "../lib/searchParams"
 
 export function PreviewFrame(
   { className, themes, themeId, ...props }: ComponentProps<"div"> & {
@@ -36,24 +37,19 @@ export function PreviewFrame(
 
 export function PreviewThemeSwitcher(props: {
   themeId: string,
-  themes?: {
-    key: string,
-    label: ReactNode,
-  }[],
+  themes: { key: string, icon: ReactNode }[]
 }) {
-  const sp = useSearchParams()
-  const spTheme = props.themes?.findIndex((item) => item.key === sp.get(props.themeId)) ?? 0
+  const nav = useAppNavigation()
+  const spTheme = props.themes?.findIndex((item) => item.key === nav.get(props.themeId)) ?? 0
   return (
     <TabList
       key={props.themeId}
       className="tab-item:p-1.5 tab-item:px-2 text-lg p-1"
-      initialTab={() => spTheme < 0 ? 0 : spTheme}
-      onTabChange={tab => {
-        const newSp = new URLSearchParams(sp)
-        newSp.set(props.themeId, tab.key)
-        window.history.replaceState(null, "", "?" + newSp.toString())
+      tabNum={spTheme < 0 ? 0 : spTheme}
+      onTabChange={(tab, index) => {
+        nav.softNavigate(props.themeId, props.themes?.[index]?.key)
       }}
-      tabs={props.themes ?? []}
+      tabs={props.themes.map(({ key, icon }) => ({ label: icon }))}
     />
   )
 }

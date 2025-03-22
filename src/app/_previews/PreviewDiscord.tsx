@@ -7,7 +7,6 @@ import imageSize from "image-size";
 import { MessageList, PreviewMenu, PreviewPanelContent, type PreviewMessages } from "./Preview";
 import { validateHex } from "../lib/hex";
 import { PreviewFrame, PreviewThemeSwitcher } from "./Preview.client";
-import { tab } from "../module/tab/tab-primitives";
 import { MaterialSymbolsDarkModeOutline, MaterialSymbolsLightModeOutline } from "../theme-switch";
 
 export async function PreviewDiscord(
@@ -21,15 +20,9 @@ export async function PreviewDiscord(
     if (!data) return null
     if (crashed) return null
     return <PreviewFrame themeId="t-discord" {...props} className={cn("bg-[var(--bg)] font-discord", className)}
-      style={{
-        // "--bg": "oklab(0.321044 -0.000249296 -0.00927344)",
-        // "--embed-bg": "oklab(0.296709 -0.000735492 -0.00772537)",
-        // "--embed-border": data.themeColor ?? "oklab(0.239468 0.000131123 -0.00589392)",
-        // "--embed-link": "oklab(0.705515 -0.0795695 -0.144235)",
-        // "--embed-text": "oklab(0.89908 -0.00192907 -0.0048306)",
-      } as CSSProperties}
+      style={{} as CSSProperties}
       themes={{
-        "default": {
+        default: {
           "--bg": "oklab(0.321044 -0.000249296 -0.00927344)",
           "--embed-bg": "oklab(0.296709 -0.000735492 -0.00772537)",
           "--embed-border": data.themeColor ?? "oklab(0.239468 0.000131123 -0.00589392)",
@@ -38,7 +31,7 @@ export async function PreviewDiscord(
           "--embed-site-name": "oklab(0.787067 -0.00258079 -0.0110391)",
           "--embed-author": "oklab(0.963876 -0.000228494 -0.00284719)",
         } as CSSProperties,
-        "light": {
+        light: {
           "--bg": "oklab(0.999994 0.0000455678 0.0000200868)",
           "--embed-bg": "oklab(0.963876 -0.000228494 -0.00284719)",
           "--embed-border": data.themeColor ?? "oklab(0.921147 -0.000889629 -0.00448376)",
@@ -100,8 +93,8 @@ export async function PreviewDiscord(
             <PreviewThemeSwitcher
               themeId="t-discord"
               themes={[
-                tab("default", <MaterialSymbolsDarkModeOutline />),
-                tab("light", <MaterialSymbolsLightModeOutline />),
+                { key: "default", icon: <MaterialSymbolsDarkModeOutline /> },
+                { key: "light", icon: <MaterialSymbolsLightModeOutline /> },
               ]}
             />
           </PreviewMenu>

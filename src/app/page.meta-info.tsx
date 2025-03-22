@@ -1,6 +1,6 @@
 import ErrorCard from "./module/error/ErrorCard";
 import { tab } from "./module/tab/tab-primitives";
-import { Tabs } from "./module/tab/Tabs";
+import { TabsWithContent } from "./module/tab/Tabs";
 import { type MetadataMetadataItem, type ResoledMetadata } from "./lib/get-metadata-field-data";
 import { ExternalIcon, MetadataRow, Separator } from "./_view/MetadataRow";
 import { Suspense, type ComponentProps } from "react";
@@ -22,16 +22,48 @@ export async function MetaInfoPanel(props: {
     const head = await props.head;
 
     return (
-      <Tabs
-        tabProps={{ className: "fadeInFromLeft-0" }}
+      <TabsWithContent
+        className="fadeInFromLeft-0"
         id="info"
         tabs={[
-          tab("General", <>General</>, <MetaCard><SummaryMetadata m={metadata} /></MetaCard>),
-          tab("Open Graph", <>Open Graph</>, <MetaCard><OpengraphMetadata m={metadata} /></MetaCard>),
-          tab("Twitter", <>Twitter</>, <MetaCard><TwitterMetadata m={metadata} /></MetaCard>),
-          tab("Icons", <>Icons</>, <MetaCard><IconMetadata data={metadata} /></MetaCard>),
-          tab("Raw", <>Raw</>, <MetaCard><pre className="overflow-auto text-xs">{head?.split('<body')[0].replaceAll('/><', '/>\n<').replaceAll(/<style[^>]*>[\s\S]*?<\/style>/g, '<style>...</style>')}</pre></MetaCard >),
-        ]} />
+          tab(
+            "General",
+            <MetaCard>
+              <div key="g" className="card-content meta-info-grid fadeBlurIn-100">
+                <SummaryMetadata m={metadata} />
+              </div>
+            </MetaCard>),
+          tab(
+            "Open Graph",
+            <MetaCard>
+              <div key="og" className="card-content meta-info-grid fadeBlurIn-100">
+                <OpengraphMetadata m={metadata} />
+              </div>
+            </MetaCard>),
+          tab(
+            "Twitter",
+            <MetaCard>
+              <div key="t" className="card-content meta-info-grid fadeBlurIn-100">
+                <TwitterMetadata m={metadata} />
+              </div>
+            </MetaCard>),
+          tab(
+            "Icons",
+            <MetaCard>
+              <div key="i" className="card-content meta-info-grid fadeBlurIn-100">
+                <IconMetadata data={metadata} />
+              </div>
+            </MetaCard>),
+          tab(
+            "Raw",
+            <MetaCard>
+              <pre key="r" className="card-content fadeBlurIn-100 overflow-auto text-xs text-foreground-body">
+                {`Only <head> is shown: \n\n`}{head?.split('<body')[0].replaceAll('/><', '/>\n<').replaceAll(/<style[^>]*>[\s\S]*?<\/style>/g, '<style>...</style>')}
+              </pre>
+            </MetaCard>
+          ),
+        ]}>
+      </TabsWithContent>
     );
   } catch (error) {
     console.log(error)
@@ -40,55 +72,50 @@ export async function MetaInfoPanel(props: {
 }
 
 function MetaCard({ className, ...props }: ComponentProps<"section">) {
-  return (
-    <section className={cn("card fadeIn-0", className)}>
-      <div key={Math.random()} className="card-content meta-info-grid fadeBlurIn-100">
-        {props.children}
-      </div>
-    </section>
-  )
+  return (<section className={cn("card fadeIn-0", className)}>
+    {props.children}
+  </section>)
 }
+
 
 function SummaryMetadata(props: { m: ResoledMetadata }) {
   const d = props.m;
-  return (
-    <>
-      <MetadataRow data={d.general.title} />
-      <MetadataRow data={d.general.description} />
-      <MetadataRow data={d.general.author} />
-      <MetadataRow data={d.general.favicons}>
-        <Suspense fallback="Loading...">
-          <FaviconSummary data={d.general.favicons} baseUrl={d.general.rawUrl.value} />
-        </Suspense>
-      </MetadataRow>
-      <Separator />
-      <MetadataRow data={d.og.title} />
-      <MetadataRow data={d.og.description} />
-      <MetadataRow data={d.og.image} />
-      <MetadataRow data={d.og.url} />
-      <MetadataRow data={d.og.type} />
-      <MetadataRow data={d.og.siteName} />
-      <Separator />
-      <MetadataRow data={d.twitter.title} />
-      <MetadataRow data={d.twitter.description} />
-      <MetadataRow data={d.twitter.card} />
-      <MetadataRow data={d.twitter.image} />
-      <Separator />
-      <MetadataRow data={d.general.viewport} />
-      <MetadataRow data={d.general.url} />
-      <MetadataRow data={d.general.robots} />
-      <MetadataRow data={d.general.applicationName} />
-      <MetadataRow data={d.general.keywords} />
-      <MetadataRow data={d.general.generator} />
-      <MetadataRow data={d.general.license} />
-      <Separator />
-      <MetadataRow data={d.general.colorScheme} />
-      <MetadataRow data={d.general.colorTheme}>
-        <ColorThemes data={d.general.colorTheme} />
-      </MetadataRow>
-      <MetadataRow data={d.general.formatDetection} />
-    </>
-  )
+  return (<>
+    <MetadataRow data={d.general.title} />
+    <MetadataRow data={d.general.description} />
+    <MetadataRow data={d.general.author} />
+    <MetadataRow data={d.general.favicons}>
+      <Suspense fallback="Loading...">
+        <FaviconSummary data={d.general.favicons} baseUrl={d.general.rawUrl.value} />
+      </Suspense>
+    </MetadataRow>
+    <Separator />
+    <MetadataRow data={d.og.title} />
+    <MetadataRow data={d.og.description} />
+    <MetadataRow data={d.og.image} />
+    <MetadataRow data={d.og.url} />
+    <MetadataRow data={d.og.type} />
+    <MetadataRow data={d.og.siteName} />
+    <Separator />
+    <MetadataRow data={d.twitter.title} />
+    <MetadataRow data={d.twitter.description} />
+    <MetadataRow data={d.twitter.card} />
+    <MetadataRow data={d.twitter.image} />
+    <Separator />
+    <MetadataRow data={d.general.viewport} />
+    <MetadataRow data={d.general.url} />
+    <MetadataRow data={d.general.robots} />
+    <MetadataRow data={d.general.applicationName} />
+    <MetadataRow data={d.general.keywords} />
+    <MetadataRow data={d.general.generator} />
+    <MetadataRow data={d.general.license} />
+    <Separator />
+    <MetadataRow data={d.general.colorScheme} />
+    <MetadataRow data={d.general.colorTheme}>
+      <ColorThemes data={d.general.colorTheme} />
+    </MetadataRow>
+    <MetadataRow data={d.general.formatDetection} />
+  </>)
 }
 
 async function FaviconSummary(props: { data: ResoledMetadata['general']['favicons'], baseUrl: string }) {

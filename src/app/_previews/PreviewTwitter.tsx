@@ -45,8 +45,8 @@ export async function PreviewTwitter(
           <div className="max-w-[32.375rem]  h-[8.188rem] w-full rounded-2xl border border-(--border) flex overflow-hidden bg-(--bg) ">
             <div data-noimg={!!image ? "" : undefined} className="w-[6.875rem] min-[554px]:w-[8.125rem] max-w-full border-r border-(--border) shrink-0 flex items-center justify-center data-noimg:bg-(--image-noimg-bg)">
               {
-                image ?
-                  <AppImage
+                image
+                  ? <AppImage
                     className="w-full h-full object-cover bg-white"
                     firstFrameGif={image?.format === "gif"}
                     src={image.url} />
@@ -130,9 +130,9 @@ function TwitterPreviewFrame({ children }: { children: React.ReactNode }) {
       <PreviewThemeSwitcher
         themeId="t-twitter"
         themes={[
-          tab("default", <MaterialSymbolsLightModeOutline />),
-          tab("dim", <MaterialSymbolsPartlyCloudyDayOutlineRounded />),
-          tab("dark", <MaterialSymbolsDarkModeOutline />),
+          { key: "default", icon: <MaterialSymbolsLightModeOutline /> },
+          { key: "dim", icon: <MaterialSymbolsPartlyCloudyDayOutlineRounded /> },
+          { key: "dark", icon: <MaterialSymbolsDarkModeOutline /> },
         ]}
       />
     </PreviewMenu>

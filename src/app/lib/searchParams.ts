@@ -20,10 +20,14 @@ export function useAppNavigation() {
     const newSp = getNewSetQuery(key, value)
     router.push('/?' + newSp)
   }
+  function get(key: string) {
+    return sp.get(key)
+  }
 
   return {
     navigate,
     softNavigate,
     sp,
+    get
   }
 }

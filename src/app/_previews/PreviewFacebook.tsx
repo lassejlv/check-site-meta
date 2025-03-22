@@ -182,8 +182,8 @@ export async function PreviewFacebook(
             <PreviewThemeSwitcher
               themeId="t-facebook"
               themes={[
-                tab("default", <MaterialSymbolsLightModeOutline />),
-                tab("dark", <MaterialSymbolsDarkModeOutline />),
+                { key: "default", icon: <MaterialSymbolsLightModeOutline /> },
+                { key: "dark", icon: <MaterialSymbolsDarkModeOutline /> },
               ]}
             />
           </PreviewMenu>

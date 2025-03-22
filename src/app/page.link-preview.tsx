@@ -1,7 +1,7 @@
 import { Suspense, type ComponentProps, type CSSProperties, type ReactNode, type SVGProps } from "react";
 import { type ResoledMetadata } from "./lib/get-metadata-field-data";
 import { tab } from "./module/tab/tab-primitives";
-import { Tabs } from "./module/tab/Tabs";
+import { TabsWithContent } from "./module/tab/Tabs";
 import { PreviewTwitter } from "./_previews/PreviewTwitter";
 import { PreviewDiscord } from "./_previews/PreviewDiscord";
 import { cn } from "lazy-cn";
@@ -18,50 +18,47 @@ export async function LinkPreviewPanel(
     if (!metadata) return null
     return (
       <Suspense fallback={<span className="fadeIn-0 p-3">Loading...</span>}>
-        <Tabs
+        <TabsWithContent
           id="preview"
-          tabProps={{
-            className: "tab fadeIn-50 tab-item:p-[var(--p)] tab-item:px-[var(--px)] svg:w-5 svg:h-5 gap-0",
-            style: {
-              "--p": "0.5rem",
-              "--px": "0.75rem",
-            } as CSSProperties
-          }}
+          className="tab fadeIn-50 tab-item:p-[var(--p)] tab-item:px-[var(--px)] svg:size-5 gap-0"
+          style={{
+            "--p": "0.5rem",
+            "--px": "0.75rem",
+          } as CSSProperties}
           tabs={[
-            tab("Twitter",
+            tab(
               <LinkPreviewPanelTooltip label="X/Twitter">
                 <RiTwitterXFill className="transition group-data-active:text-foreground" />
               </LinkPreviewPanelTooltip>,
               <PreviewTwitter key="x" metadata={metadata} className="fadeIn-100" />
             ),
-            tab("Discord",
+            tab(
               <LinkPreviewPanelTooltip label="Discord">
-                <IcBaselineDiscord style={{ "--color": "#5865F2" } as CSSProperties} className="transition group-hover:text-[var(--color)] group-data-active:text-[var(--color)]" />
+                <IcBaselineDiscord style={{ "--c": "#5865F2" } as CSSProperties} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
               </LinkPreviewPanelTooltip>,
               <PreviewDiscord key="d" metadata={metadata} className="fadeIn-0" />
             ),
-            tab("Google",
+            tab(
               <LinkPreviewPanelTooltip label="Google">
                 <LogosGoogleIcon className="p-0.5" />
               </LinkPreviewPanelTooltip>,
               <PreviewGoogle key="g" metadata={metadata} className="fadeIn-0" />
             ),
-            tab("Facebook",
+            tab(
               <LinkPreviewPanelTooltip label="Facebook">
-                <IcBaselineFacebook style={{ "--color": "#1877f2" } as CSSProperties} className="transition group-hover:text-[var(--color)] group-data-active:text-[var(--color)]" />
+                <IcBaselineFacebook style={{ "--c": "#1877f2" } as CSSProperties} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
               </LinkPreviewPanelTooltip>,
               <PreviewFacebook key="f" metadata={metadata} className="fadeIn-0" />
             ),
             tab(
-              "Whatsapp",
               <LinkPreviewPanelTooltip label="Whatsapp">
-                <IcBaselineWhatsapp style={{ "--color": "#65D072" } as CSSProperties} className="transition group-hover:text-[var(--color)] group-data-active:text-[var(--color)]" />
+                <IcBaselineWhatsapp style={{ "--c": "#65D072" } as CSSProperties} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
               </LinkPreviewPanelTooltip>,
               <PreviewWhatsapp key="w" metadata={metadata} className="fadeIn-0" />
             ),
-            tab("Telegram",
+            tab(
               <LinkPreviewPanelTooltip label="Telegram">
-                <IcBaselineTelegram style={{ "--color": "#2AABEE" } as CSSProperties} className="transition group-hover:text-[var(--color)] group-data-active:text-[var(--color)]" />
+                <IcBaselineTelegram style={{ "--c": "#2AABEE" } as CSSProperties} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
               </LinkPreviewPanelTooltip>,
               <ComingSoon />
             ),

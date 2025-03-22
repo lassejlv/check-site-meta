@@ -189,6 +189,23 @@ body {
 
 /* Components ----------------------------- */
 
+@utility collapsible-row-grid-* {
+  --tw-duration: calc(--value(number) * 1ms);
+  --tw-duration: calc(--value([number]) * 1ms);
+  @apply grid grid-rows-[1fr] overflow-hidden transition-[grid-template-rows];
+}
+@utility collapse-row {
+  @apply grid-rows-[0fr];
+}
+@utility collapsible-col-grid-* {
+  --tw-duration: calc(--value(number) * 1ms);
+  --tw-duration: calc(--value([number]) * 1ms);
+  @apply grid grid-cols-[1fr] overflow-hidden transition-[grid-template-columns];
+}
+@utility collapse-col {
+  @apply grid-cols-[0fr];
+}
+
 @utility link-underline {
   color: light-dark(
     var(--color-blue-600),
@@ -314,9 +331,6 @@ body {
 @utility input-outline-hover {
   @apply outline-0 hover:outline-4 outline-transparent hover:outline-focus/50;
 }
-
-
-
 
 /* Animations ----------------------------- */
 

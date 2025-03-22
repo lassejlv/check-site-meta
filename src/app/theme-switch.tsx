@@ -2,7 +2,7 @@
 
 import Script from "next/script";
 import { useEffect, useRef, useState, type SVGProps } from "react";
-import { TabList } from "./module/tab/TabList";
+import { TabList } from "./module/tab/TabRoot";
 import { tab } from "./module/tab/tab-primitives";
 
 export function ThemeSwitcherDev() {
@@ -16,24 +16,15 @@ export function ThemeSwitcherDev() {
 
   return (
     <div className="fixed top-4 right-4 px-4 card p-2 flex gap-3 z-50">
-      <button
-        onClick={() => {
-          setTheme("light")
-        }}
-      >
+      <button onClick={() => saveThemeToStore("light")}>
         Light
       </button>
-      <button onClick={() => {
-        setTheme("dark")
-      }}>
+      <button onClick={() => { saveThemeToStore("dark") }}>
         Dark
       </button>
-      <button onClick={() => {
-        setTheme("system")
-      }}>
+      <button onClick={() => { saveThemeToStore("system") }}>
         System
       </button>
-
     </div>
   )
 }
@@ -51,7 +42,7 @@ export function getStoredTheme() {
   return theme as Themes
 }
 
-export function setTheme(theme: Themes) {
+export function saveThemeToStore(theme: Themes) {
   if (!themeModes.includes(theme))
     return;
   if (theme === "system") {
@@ -64,38 +55,27 @@ export function setTheme(theme: Themes) {
 
 export function ThemeSwitcher() {
 
-  const [initialTheme, setInitialTheme] = useState<ReturnType<typeof getStoredTheme>>();
+  // Using useState to prevent hydration error from localsotrage being undefined on the server.
+  const [theme, setTheme] = useState<ReturnType<typeof getStoredTheme> | null>(null)
+  useEffect(() => setTheme(getStoredTheme()), [])
 
-  useEffect(() => {
-    setInitialTheme(getStoredTheme())
-  }, [])
-
-  if (initialTheme === undefined) return null;
+  if (theme === undefined) return null;
+  const tabNum = theme === "light" ? 0 : theme === "dark" ? 1 : 2
 
   return (
     <TabList
       id="footer"
       className="p-1 tab-item:p-1.5 [&_svg]:w-4 [&_svg]:h-4"
       tabs={[
-        tab("light", <MaterialSymbolsLightModeOutline />),
-        tab("dark", <MaterialSymbolsDarkModeOutline />),
-        tab("system", <MaterialSymbolsDesktopWindowsOutline />),
+        tab(<MaterialSymbolsLightModeOutline />),
+        tab(<MaterialSymbolsDarkModeOutline />),
+        tab(<MaterialSymbolsDesktopWindowsOutline />),
       ]}
-      onTabChange={(item) => {
-        setTheme(item.key as Themes)
+      onTabChange={(_, index) => {
+        setTheme(themeModes[index])
+        saveThemeToStore(themeModes[index])
       }}
-      initialTab={() => {
-        const theme = initialTheme
-        if (theme === "not-set") {
-          return 2
-        } else if (theme === "light") {
-          return 0
-        } else if (theme === "dark"){
-          return 1
-        } else {
-          return 2
-        }
-      }}
+      tabNum={tabNum}
     />
   )
 }

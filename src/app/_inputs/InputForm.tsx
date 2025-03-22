@@ -23,15 +23,13 @@ export function InputForm(props: {
     if (inputRef.current) inputRef.current.focus()
   }, [])
 
-  return <div className="flex gap-2 mb-8">
-    <Form
+  return <Form
       id="lookup_url"
       onSubmit={() => logCheckButton()}
       onKeyDown={(event) => {
         if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) event.currentTarget.requestSubmit()
       }}
       action="/"
-      className="grow"
       autoComplete="off"
     >
       <div
@@ -64,7 +62,6 @@ export function InputForm(props: {
       </div>
       {existingSp.map(([key, value]) => <input key={key} readOnly type="hidden" name={key} value={String(value)} />)}
     </Form>
-  </div>
 }
 
 export function GoToUrlButton({ onClick, className, ...props }: ComponentProps<'button'>) {

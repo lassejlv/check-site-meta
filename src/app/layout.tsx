@@ -1,13 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Geist_Mono, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
-import "./globals.css";
+import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { cn } from "lazy-cn";
-import { ThemeSwitcherDev } from "./theme-switch";
-import Script from "next/script";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Check Site Meta",
-  description: "Check the metadata of any site",
+  description: "Check the metadata of any site.",
 }
 export const viewport: Viewport = {
   colorScheme: "light dark"
