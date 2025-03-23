@@ -24,6 +24,7 @@ program
   .description(DESCRIPTION)
   .argument("[input]", "URL to check, or localhost port to check (optional)")
   .option("-p, --port <number>", "Specify port number", (value) => parseInt(value, 10))
+  .option("-b, --bind <address>", "Specify address to bind", "localhost")
   .option("--showdir", "Show directory path of where the command is run")
   .option("--no-analytics", "Disable analytics tracking. You can also set DO_NO_TRACK=true in your environment")
   .parse(process.argv);
@@ -48,6 +49,7 @@ if (options.showdir) {
   process.exit();
 }
 
+const HOST = options.bind ?? "localhost";
 const PORT = options.port ?? 3050;
 
 function isPositiveInteger(str: string) {
@@ -70,6 +72,7 @@ const nextProcess = spawn("node", [path.join(__dirname, "./standalone/server.js"
   stdio: ["ignore", "pipe", "pipe"],
   env: {
     ...process.env,
+    HOSTNAME: HOST,
     PORT: String(PORT),
     DISABLE_ANALYTICS: !options.analytics ? "true" : undefined,
     CSM_VERSION: VERSION,
@@ -85,7 +88,7 @@ nextProcess.stdout.on("data", (data) => {
   }
   if (message.startsWith("   - Local:")) {
     process.stdout.write(
-      `   - Local: http://localhost:${ PORT }${ skipAnalytics ? " (Analytics disabled)" : "" }
+      `   - Local: http://${ HOST }:${ PORT }${ skipAnalytics ? " (Analytics disabled)" : "" }
    - Starting... 🚀\n\n`
     );
     return
@@ -96,8 +99,8 @@ nextProcess.stdout.on("data", (data) => {
   if (message.includes(`✓ Ready in`)) {
     rl.question(' ? Do you want to open the browser? (Y/n) ', (answer) => {
       if (answer.toLowerCase() === 'y' || answer === '') {
-        console.log(` → Opening browser at http://localhost:${ PORT }`);
-        open(`http://localhost:${ PORT }${ URL ? `/?url=${ URL }` : "" }`);
+        console.log(` → Opening browser at http://${ HOST }:${ PORT }`);
+        open(`http://${ HOST }:${ PORT }${ URL ? `/?url=${ URL }` : "" }`);
       } else {
         console.log(' → Skipping browser launch.');
       }

@@ -6,6 +6,10 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Check Site Meta",
   description: "Check the metadata of any site.",
+  authors: [{
+    name: "Alfonsus Ardani",
+    url: "https://alfon.dev",
+  }],
 }
 export const viewport: Viewport = {
   colorScheme: "light dark"

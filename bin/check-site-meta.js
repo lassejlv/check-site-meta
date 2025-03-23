@@ -9,8 +9,8 @@ import { readFileSync } from "fs";
 // Get the directory of the current module (equivalent to __dirname in CommonJS)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const packageJson = JSON.parse(readFileSync(path.join(__dirname, "../package.json"), "utf-8"));
 // Read version from package.json using import
+const packageJson = JSON.parse(readFileSync(path.join(__dirname, "../package.json"), "utf-8"));
 const NAME = packageJson['name'];
 const VERSION = packageJson['version'];
 const DESCRIPTION = packageJson['description'];
@@ -20,6 +20,7 @@ program
     .description(DESCRIPTION)
     .argument("[input]", "URL to check, or localhost port to check (optional)")
     .option("-p, --port <number>", "Specify port number", (value) => parseInt(value, 10))
+    .option("-b, --bind <address>", "Specify address to bind", "localhost")
     .option("--showdir", "Show directory path of where the command is run")
     .option("--no-analytics", "Disable analytics tracking. You can also set DO_NO_TRACK=true in your environment")
     .parse(process.argv);
@@ -40,6 +41,7 @@ if (options.showdir) {
     console.log(`\n → Running from directory: ${__dirname}\n`);
     process.exit();
 }
+const HOST = options.bind ?? "localhost";
 const PORT = options.port ?? 3050;
 function isPositiveInteger(str) {
     return /^[1-9]\d*$/.test(str);
@@ -55,6 +57,7 @@ const nextProcess = spawn("node", [path.join(__dirname, "./standalone/server.js"
     stdio: ["ignore", "pipe", "pipe"],
     env: {
         ...process.env,
+        HOSTNAME: HOST,
         PORT: String(PORT),
         DISABLE_ANALYTICS: !options.analytics ? "true" : undefined,
         CSM_VERSION: VERSION,
@@ -67,7 +70,7 @@ nextProcess.stdout.on("data", (data) => {
         return;
     }
     if (message.startsWith("   - Local:")) {
-        process.stdout.write(`   - Local: http://localhost:${PORT}${skipAnalytics ? " (Analytics disabled)" : ""}
+        process.stdout.write(`   - Local: http://${HOST}:${PORT}${skipAnalytics ? " (Analytics disabled)" : ""}
    - Starting... 🚀\n\n`);
         return;
     }
@@ -75,8 +78,8 @@ nextProcess.stdout.on("data", (data) => {
     if (message.includes(`✓ Ready in`)) {
         rl.question(' ? Do you want to open the browser? (Y/n) ', (answer) => {
             if (answer.toLowerCase() === 'y' || answer === '') {
-                console.log(` → Opening browser at http://localhost:${PORT}`);
-                open(`http://localhost:${PORT}${URL ? `/?url=${URL}` : ""}`);
+                console.log(` → Opening browser at http://${HOST}:${PORT}`);
+                open(`http://${HOST}:${PORT}${URL ? `/?url=${URL}` : ""}`);
             }
             else {
                 console.log(' → Skipping browser launch.');
