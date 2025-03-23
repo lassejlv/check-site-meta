@@ -78,7 +78,7 @@ export default function ErrorCard(
 }
 
 function ContextBox({ className, ...props }: ComponentProps<"div">) {
-  return (<div className={cn("font-mono p-1 px-2 mt-4 bg-background-tooltip border border-border rounded-md whitespace-pre overflow-auto", className)} {...props} />)
+  return (<div className={cn("font-mono p-2 px-2 mt-4 bg-background-tooltip text-foreground-muted-2 text-xs border border-border rounded-md whitespace-pre overflow-auto font-normal", className)} {...props} />)
 }
 
 
