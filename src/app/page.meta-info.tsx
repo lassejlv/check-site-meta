@@ -29,33 +29,33 @@ export async function MetaInfoPanel(props: {
           tab(
             "General",
             <MetaCard>
-              <div key="g" className="card-content meta-info-grid fadeBlurIn-100">
+              <MetaCardContent key="g">
                 <SummaryMetadata m={metadata} />
-              </div>
+              </MetaCardContent>
             </MetaCard>
           ),
           tab(
             "Open Graph",
             <MetaCard>
-              <div key="og" className="card-content meta-info-grid fadeBlurIn-100">
+              <MetaCardContent key="og">
                 <OpengraphMetadata m={metadata} />
-              </div>
+              </MetaCardContent>
             </MetaCard>
           ),
           tab(
             "Twitter",
             <MetaCard>
-              <div key="t" className="card-content meta-info-grid fadeBlurIn-100">
+              <MetaCardContent key="t">
                 <TwitterMetadata m={metadata} />
-              </div>
+              </MetaCardContent>
             </MetaCard>
           ),
           tab(
             "Icons",
             <MetaCard>
-              <div key="i" className="card-content meta-info-grid fadeBlurIn-100">
+              <MetaCardContent key="i">
                 <IconMetadata data={metadata} />
-              </div>
+              </MetaCardContent>
             </MetaCard>
           ),
           tab(
@@ -70,15 +70,15 @@ export async function MetaInfoPanel(props: {
       </TabsWithContent>
     );
   } catch (error) {
-    console.log(error)
     return <ErrorCard error={error} />;
   }
 }
 
 function MetaCard({ className, ...props }: ComponentProps<"section">) {
-  return (<section className={cn("card fadeIn-0", className)}>
-    {props.children}
-  </section>)
+  return (<section className={cn("card fadeIn-0", className)} {...props} />)
+}
+function MetaCardContent({ className, ...props }: ComponentProps<"div">) {
+  return (<div className={cn("card-content meta-info-grid fadeBlurIn-100", className)} {...props} />)
 }
 
 
@@ -149,32 +149,18 @@ async function FaviconSummary(props: { data: ResoledMetadata['general']['favicon
       }
       break
     }
-
-
-    // if (!f.resolvedUrl) continue
-    // const res = await appFetch(f.resolvedUrl)
-    // const imageSizeRes = await getImageSizeFromResponse(res)
-    // if (!imageSizeRes.imageSize) continue
-    // favicon = {
-    //   value: f.value ?? "",
-    //   resolvedUrl: f.resolvedUrl,
-    //   label: f.label
-    // }
-    // break
   }
 
   if (!favicon) return <span className="meta-mute">-</span>
 
   return (
     <div className="flex *:first:shrink-0 gap-2 items-start">
-      <FaviconPreview
-        src={favicon.resolvedUrl}
-      />
+      <FaviconPreview src={favicon.resolvedUrl} />
       <div>
         <div className="text-xs">
           {favicon.source}
         </div>
-        <a className="link-underline block leading-snug" target="_blank" href={favicon.resolvedUrl}>
+        <a className="link-underline block leading-snug text-sm" target="_blank" href={favicon.resolvedUrl}>
           {favicon.value} <ExternalIcon />
         </a>
         <div className="text-xs">
@@ -323,11 +309,15 @@ function IconMetadata(props: {
 
 async function isValidIcon(url?: string) {
   if (!url) return false
-  const res = await appFetch(url)
-  if (res.headers.get('content-type') === 'image/svg+xml') return url
-  if (res.headers.get('content-type')?.startsWith('text/')) return false
+  try {
+    const res = await appFetch(url)
+    if (res.headers.get('content-type') === 'image/svg+xml') return url
+    if (res.headers.get('content-type')?.startsWith('text/')) return false
 
-  const imageSizeRes = await getImageSizeFromResponse(res)
-  if (!imageSizeRes.imageSize) return false
-  return url
+    const imageSizeRes = await getImageSizeFromResponse(res)
+    if (!imageSizeRes.imageSize) return false
+    return url
+  } catch (error) {
+    return false
+  }
 }
