@@ -32,28 +32,32 @@ export async function MetaInfoPanel(props: {
               <div key="g" className="card-content meta-info-grid fadeBlurIn-100">
                 <SummaryMetadata m={metadata} />
               </div>
-            </MetaCard>),
+            </MetaCard>
+          ),
           tab(
             "Open Graph",
             <MetaCard>
               <div key="og" className="card-content meta-info-grid fadeBlurIn-100">
                 <OpengraphMetadata m={metadata} />
               </div>
-            </MetaCard>),
+            </MetaCard>
+          ),
           tab(
             "Twitter",
             <MetaCard>
               <div key="t" className="card-content meta-info-grid fadeBlurIn-100">
                 <TwitterMetadata m={metadata} />
               </div>
-            </MetaCard>),
+            </MetaCard>
+          ),
           tab(
             "Icons",
             <MetaCard>
               <div key="i" className="card-content meta-info-grid fadeBlurIn-100">
                 <IconMetadata data={metadata} />
               </div>
-            </MetaCard>),
+            </MetaCard>
+          ),
           tab(
             "Raw",
             <MetaCard>

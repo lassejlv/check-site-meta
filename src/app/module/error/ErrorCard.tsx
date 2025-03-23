@@ -1,5 +1,6 @@
-import type { SVGProps } from "react"
+import type { ComponentProps, SVGProps } from "react"
 import { AppError, type ErrorInfo } from "./error-primitives"
+import { cn } from "lazy-cn"
 
 const ErrorInfoMessages = {
   input: {
@@ -64,13 +65,20 @@ export default function ErrorCard(
         </div>
       </div>
       {error.detail && (
-        <div className="font-mono p-1 px-2 mt-4 bg-background-tooltip border border-border rounded-md">{error.detail}</div>
+        <ContextBox>{error.detail}</ContextBox>
       )}
       {!!error.context.length && (error.context.map((context, index) => (
-        <div key={index} className="font-mono p-1 px-2 mt-4 bg-background-tooltip border border-border rounded-md">{context}</div>
+        <ContextBox key={index} className="text-sm">{context}</ContextBox>
       )))}
+      {props.error instanceof AppError && props.error.error instanceof Error && (
+        <ContextBox className="text-sm">{props.error.error.stack}</ContextBox>
+      )}
     </div>
   )
+}
+
+function ContextBox({ className, ...props }: ComponentProps<"div">) {
+  return (<div className={cn("font-mono p-1 px-2 mt-4 bg-background-tooltip border border-border rounded-md whitespace-pre overflow-auto", className)} {...props} />)
 }
 
 

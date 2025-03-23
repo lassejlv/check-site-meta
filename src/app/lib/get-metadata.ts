@@ -6,14 +6,15 @@ import { appFetch } from "./fetch";
 
 export const fetchRoot = cache(async function getRoot(url: string) {
 
-  const res = await appFetch(
-    url).catch(error => { throw new AppError(error, "fetch", "Fetch Failed", error.message, [`url: ${ url }`]) })
+  const res = await appFetch(url)
+    .catch(error => { throw new AppError(error, "fetch", "Fetch Failed", error.message, [`url: ${ url }`]) })
+
   if (!res.headers.get("content-type")?.includes("text/html")) {
     throw new AppError(null, "parse", "Fetch Returns Non-HTML", `Content-Type: ${ res.headers.get("content-type") }`)
   }
-  const html = await res.text().catch(error => {
-    throw new AppError(error, "parse", "Response Parse Failed", error.message)
-  });
+  const html = await res.text()
+    .catch(error => { throw new AppError(error, "parse", "Response Parse Failed", error.message) });
+
   try {
     const root = parse(html);
     return { root, html }
@@ -160,7 +161,6 @@ export function getRawMeta(root: HTMLElement, rawUrl: string) {
 function getTwitterMeta(root: HTMLElement, key: string) {
   return root.querySelector(`meta[name='${ key }']`)?.getAttribute("content") ?? root.querySelector(`meta[property='${ key }']`)?.getAttribute("content")
 }
-
 function fromMetaTagWithName(root: HTMLElement, key: string) {
   return root.querySelector(`meta[name='${ key }']`)?.getAttribute("content")
 }

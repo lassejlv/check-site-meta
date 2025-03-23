@@ -17,13 +17,16 @@ export function createError(
 
 export class AppError extends Error implements ErrorInfo {
   constructor(
-    readonly error: unknown,
+    readonly error: unknown | undefined | null,
     readonly type: "input" | "fetch" | "server" | "parse" | "other",
     readonly summary: string,
     readonly detail?: string | undefined,
     readonly context: string[] = [],
   ) {
     super(summary)
+    if (!error) {
+      this.error = new Error(summary)
+    }
     this.name = "AppError"
   }
 

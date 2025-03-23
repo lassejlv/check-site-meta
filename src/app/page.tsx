@@ -29,6 +29,7 @@ import { changelog } from "../../changelog"
 
 export default async function Home(context: SearchParamsContext) {
   const query = await context.searchParams;
+  const hideHome = !!query.url
 
   const getMetadata = async () => {
     const url = parseUrlFromQuery(query.url)
@@ -56,9 +57,9 @@ export default async function Home(context: SearchParamsContext) {
         "lg:grid lg:grid-cols-2 gap-x-8"
       )}>
         <div className="flex flex-col min-h-screen py-12">
-          <Header hidden={!!query.url} />
+          <Header hidden={hideHome} />
           <InputForm query={query} />
-          <RecentSuggestions hidden={!!query.url} />
+          <RecentSuggestions hidden={hideHome} />
           <div className="flex flex-col gap-8 mt-8">
             <Suspense key={searchId} fallback={<Loading />}>
               <MetaInfoPanel metadata={getMetadata()} head={getHead()} />
@@ -66,7 +67,7 @@ export default async function Home(context: SearchParamsContext) {
           </div>
         </div>
         <div className="flex flex-col items-center gap-8 pt-15 pb-12">
-          <Changelog hidden={!!query.url} />
+          <Changelog hidden={hideHome} />
           <Suspense key={searchId}>
             <LinkPreviewPanel metadata={getMetadata()} />
           </Suspense>
