@@ -155,12 +155,12 @@ async function getDiscordPreview(metadata: ResoledMetadata) {
     const res = validateHex(data.themeColor)
     if (!res.valid) {
       messages.push(["error", `Invalid color theme value: ${ data.themeColor }`])
-      data.themeColor = "oklab(0.239468 0.000131123 -0.00589392)"
+      data.themeColor = undefined
     }
     if (res.valid) {
       if (res.shortHex || (res.shortHex && res.withAlpha)) {
         messages.push(["warn", `Short Hex values (${ data.themeColor }) will be parsed incorrectly by Discord. Consider using full hex values.`])
-        data.themeColor = '#' + data.themeColor.split('#')[1].padStart(6, '0')
+        data.themeColor = '#' + data.themeColor?.split('#')[1].padStart(6, '0')
       }
       if (!res.shortHex && res.withAlpha) {
         messages.push(["error", `8 digit hex values (${ data.themeColor }) will cause the preview to not show up. Consider using 6 digit hex values.`])
