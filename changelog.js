@@ -1,4 +1,11 @@
 export const changelog = {
+  "0.2.30": [
+    "Added -b --bind flag to specify the host to bind the server to",
+    "Added first version of favicon",
+    "Added more context to errors",
+    "Improved animations & UI",
+    "Refactor code",
+  ],
   "0.2.24": [
     "Improved animation: url input transition & suggestion lists",
     "Fixed hover suggestion animation",
