@@ -87,7 +87,7 @@ function Header(props: {
   return <header className="collapsible-row-grid-700 closed:collapse-row group" data-closed={props.hidden ? "" : undefined}>
     <div className="min-h-0">
       <div className="mb-12 mt-20 text-center lg:text-start flex flex-col items-center lg:block g-closed:opacity-0 g-closed:translate-y-10 transition duration-700">
-        <div className="text-6xl tracking-[-0.08em] font-mono header-fill font-bold">
+        <div className="text-5xl md:text-6xl lg:text-5xl xl:text-6xl  tracking-[-0.08em] font-mono header-fill font-bold">
           check-site-meta
         </div>
         <div className="text-foreground-muted max-w-100 mt-2 font-sans text-xl g-closed:opacity-0 g-closed:translate-y-10 transition duration-700">
