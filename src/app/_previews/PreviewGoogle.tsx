@@ -1,4 +1,4 @@
-import type { ComponentProps, CSSProperties, SVGProps } from "react";
+import type { ComponentProps, SVGProps } from "react";
 import { descriptions, type ResoledMetadata } from "../lib/get-metadata-field-data";
 import { MessageList, PreviewMenu, PreviewPanelContent, type PreviewMessages } from "./Preview";
 import { AppImage } from "../module/image/Image";
@@ -19,7 +19,7 @@ export async function PreviewGoogle({ metadata, className, ...props }: Component
         themeId="t-google"
         style={{
           "--font": "Arial, sans-serif",
-        } as CSSProperties}
+        }}
         themes={{
           'default': {
             "--bg": "#ffffff",
@@ -31,7 +31,7 @@ export async function PreviewGoogle({ metadata, className, ...props }: Component
             "--icon-web-bg": "#e2eeff",
             "--icon-web": "#1a0dab",
             "--icon-menu": "#4d5156",
-          } as CSSProperties,
+          },
           'dark': {
             "--bg": "#101218",
             "--text-site-name": "#dadce0",
@@ -42,7 +42,7 @@ export async function PreviewGoogle({ metadata, className, ...props }: Component
             "--icon-web-bg": "#697988",
             "--icon-web": "#697988",
             "--icon-menu": "#9aa0a6",
-          } as CSSProperties
+          }
         }}
       >
         <div className="relative flex flex-col justify-start text-px-14 font-[400] leading-[1.58]">

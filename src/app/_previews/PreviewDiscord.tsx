@@ -1,4 +1,4 @@
-import type { ComponentProps, CSSProperties } from "react";
+import type { ComponentProps } from "react";
 import type { ResoledMetadata } from "../lib/get-metadata-field-data";
 import { cn } from "lazy-cn";
 import { AppImage } from "../module/image/Image";
@@ -20,7 +20,7 @@ export async function PreviewDiscord(
     if (!data) return null
     if (crashed) return null
     return <PreviewFrame themeId="t-discord" {...props} className={cn("bg-[var(--bg)] font-discord", className)}
-      style={{} as CSSProperties}
+      style={{}}
       themes={{
         default: {
           "--bg": "oklab(0.321044 -0.000249296 -0.00927344)",
@@ -30,7 +30,7 @@ export async function PreviewDiscord(
           "--embed-text": "oklab(0.89908 -0.00192907 -0.0048306)",
           "--embed-site-name": "oklab(0.787067 -0.00258079 -0.0110391)",
           "--embed-author": "oklab(0.963876 -0.000228494 -0.00284719)",
-        } as CSSProperties,
+        },
         light: {
           "--bg": "oklab(0.999994 0.0000455678 0.0000200868)",
           "--embed-bg": "oklab(0.963876 -0.000228494 -0.00284719)",
@@ -39,7 +39,7 @@ export async function PreviewDiscord(
           "--embed-text": "oklab(0.321044 -0.000249296 -0.00927344)",
           "--embed-site-name": "oklab(0.432341 0.00109924 -0.0133243)",
           "--embed-author": "oklab(0.122749 0.000796985 -0.00276326)",
-        } as CSSProperties,
+        },
       }}
     >
       <div className={cn(

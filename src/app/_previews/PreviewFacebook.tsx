@@ -1,4 +1,4 @@
-import type { ComponentProps, CSSProperties, SVGProps } from "react";
+import type { ComponentProps, SVGProps } from "react";
 import type { ResoledMetadata } from "../lib/get-metadata-field-data";
 import { MessageList, PreviewMenu, PreviewPanelContent, type PreviewMessages } from "./Preview";
 import { PreviewFrame, PreviewThemeSwitcher } from "./Preview.client";
@@ -27,7 +27,7 @@ export async function PreviewFacebook(
           '--card-radius': '8px',
           '--font-family': 'system-ui, -apple-system, "system-ui", ".SFNSText-Regular", sans-serif',
           '--card-shadow': '0 1px 2px rgba(0,0,0,.2)',
-        } as CSSProperties}
+        }}
         themes={{
           'default': {
             '--bg': 'rgb(242, 244, 247)',
@@ -36,7 +36,7 @@ export async function PreviewFacebook(
             '--muted': 'rgb(101, 104, 108)',
             '--border': 'rgba(0, 0, 0, 0.1)',
             '--meta-bg': 'rgb(240, 242, 245)'
-          } as CSSProperties,
+          },
           'dark': {
             '--bg': 'rgb(28, 28, 29)',
             '--card-bg': 'rgb(37, 39, 40)',
@@ -44,7 +44,7 @@ export async function PreviewFacebook(
             '--muted': 'rgb(176, 179, 184)',
             '--border': 'rgba(255, 255, 255, 0.05)',
             '--meta-bg': 'rgb(51, 51, 52)'
-          } as CSSProperties,
+          },
         }}
       >
         <div className={cn(

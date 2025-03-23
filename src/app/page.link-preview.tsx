@@ -1,4 +1,4 @@
-import { Suspense, type ComponentProps, type CSSProperties, type ReactNode, type SVGProps } from "react";
+import { Suspense, type ComponentProps, type ReactNode, type SVGProps } from "react";
 import { type ResoledMetadata } from "./lib/get-metadata-field-data";
 import { tab } from "./module/tab/tab-primitives";
 import { TabsWithContent } from "./module/tab/Tabs";
@@ -24,7 +24,7 @@ export async function LinkPreviewPanel(
           style={{
             "--p": "0.5rem",
             "--px": "0.75rem",
-          } as CSSProperties}
+          }}
           tabs={[
             tab(
               <LinkPreviewPanelTooltip label="X/Twitter">
@@ -34,7 +34,7 @@ export async function LinkPreviewPanel(
             ),
             tab(
               <LinkPreviewPanelTooltip label="Discord">
-                <IcBaselineDiscord style={{ "--c": "#5865F2" } as CSSProperties} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
+                <IcBaselineDiscord style={{ "--c": "#5865F2" }} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
               </LinkPreviewPanelTooltip>,
               <PreviewDiscord key="d" metadata={metadata} className="fadeIn-0" />
             ),
@@ -46,19 +46,19 @@ export async function LinkPreviewPanel(
             ),
             tab(
               <LinkPreviewPanelTooltip label="Facebook">
-                <IcBaselineFacebook style={{ "--c": "#1877f2" } as CSSProperties} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
+                <IcBaselineFacebook style={{ "--c": "#1877f2" }} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
               </LinkPreviewPanelTooltip>,
               <PreviewFacebook key="f" metadata={metadata} className="fadeIn-0" />
             ),
             tab(
               <LinkPreviewPanelTooltip label="Whatsapp">
-                <IcBaselineWhatsapp style={{ "--c": "#65D072" } as CSSProperties} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
+                <IcBaselineWhatsapp style={{ "--c": "#65D072" }} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
               </LinkPreviewPanelTooltip>,
               <PreviewWhatsapp key="w" metadata={metadata} className="fadeIn-0" />
             ),
             tab(
               <LinkPreviewPanelTooltip label="Telegram">
-                <IcBaselineTelegram style={{ "--c": "#2AABEE" } as CSSProperties} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
+                <IcBaselineTelegram style={{ "--c": "#2AABEE" }} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
               </LinkPreviewPanelTooltip>,
               <ComingSoon />
             ),

@@ -60,11 +60,11 @@ export default async function Home(context: SearchParamsContext) {
           <Header hidden={hideHome} />
           <InputForm query={query} />
           <RecentSuggestions hidden={hideHome} />
-          <div className="flex flex-col gap-8 mt-8">
-            <Suspense key={searchId} fallback={<Loading />}>
+          <Suspense key={searchId} fallback={<Loading />}>
+            <div className="flex flex-col gap-8 pt-8">
               <MetaInfoPanel metadata={getMetadata()} head={getHead()} />
-            </Suspense>
-          </div>
+            </div>
+          </Suspense>
         </div>
         <div className="flex flex-col items-center gap-8 pt-15 pb-12">
           <Changelog hidden={hideHome} />

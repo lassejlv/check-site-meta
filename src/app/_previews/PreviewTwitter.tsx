@@ -1,14 +1,12 @@
-import { imageSize } from 'image-size'
 import { appFetch } from "../lib/fetch";
 import type { ResoledMetadata } from "../lib/get-metadata-field-data";
 import { AppImage } from "../module/image/Image";
-import type { ComponentProps, CSSProperties, SVGProps } from "react";
+import type { ComponentProps, SVGProps } from "react";
 import { cn } from "lazy-cn";
 import { getImageSizeFromResponse } from '../lib/image-size';
 import { PreviewPanelContent, MessageList, type PreviewMessages, PreviewMenu } from './Preview';
 import { PreviewFrame, PreviewThemeSwitcher } from './Preview.client';
-import { tab } from '../module/tab/tab-primitives';
-import { MaterialSymbolsDarkModeOutline, MaterialSymbolsLightModeOutline, MaterialSymbolsNightsStayOutline } from '../theme-switch';
+import { MaterialSymbolsDarkModeOutline, MaterialSymbolsLightModeOutline } from '../theme-switch';
 
 export async function PreviewTwitter(
   { metadata, className, ...props }: { metadata: ResoledMetadata } & ComponentProps<"div">
@@ -95,7 +93,7 @@ function TwitterPreviewFrame({ children }: { children: React.ReactNode }) {
       style={{
         "--overlay-text": "white",
         "--overlay-bg": "rgba(0, 0, 0, 0.77)",
-      } as CSSProperties}
+      }}
       themes={{
         "default": {
           "--bg": "white",
@@ -104,7 +102,7 @@ function TwitterPreviewFrame({ children }: { children: React.ReactNode }) {
           "--image-noimg-fill": "rgb(83, 100, 113)",
           "--text-title": "rgb(15, 20, 25)",
           "--text-description": "rgb(83, 100, 113)",
-        } as CSSProperties,
+        },
         "dim": {
           "--bg": "rgb(21, 32, 43)",
           "--border": "rgb(56, 68, 77)",
@@ -113,7 +111,7 @@ function TwitterPreviewFrame({ children }: { children: React.ReactNode }) {
           "--text-title": "rgb(247, 249, 249)",
           "--text-description": "rgb(139, 152, 165)",
 
-        } as CSSProperties,
+        },
         "dark": {
           "--bg": "black",
           "--border": "rgb(47, 51, 54)",
@@ -121,7 +119,7 @@ function TwitterPreviewFrame({ children }: { children: React.ReactNode }) {
           "--image-noimg-fill": "rgb(113, 118, 123)",
           "--text-title": "rgb(231, 233, 234)",
           "--text-description": "rgb(113, 118, 123)",
-        } as CSSProperties,
+        },
       }}
     >
       {children}

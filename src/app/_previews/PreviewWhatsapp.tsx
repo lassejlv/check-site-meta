@@ -1,4 +1,4 @@
-import type { ComponentProps, CSSProperties } from "react";
+import type { ComponentProps } from "react";
 import type { ResoledMetadata } from "../lib/get-metadata-field-data";
 import { MessageList, PreviewMenu, PreviewPanelContent, type PreviewMessages } from "./Preview";
 import { PreviewFrame } from "./Preview.client";
@@ -15,11 +15,11 @@ export async function PreviewWhatsapp(
         themeId="t-whatsapp"
         style={{
 
-        } as CSSProperties}
+        }}
         themes={{
           'default': {
 
-          } as CSSProperties,
+          },
         }}
       >
         <div className="rl">
