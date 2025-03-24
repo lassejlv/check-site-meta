@@ -1,4 +1,8 @@
 export const changelog = {
+  "0.2.31": [
+    "Added open inserted link in new tab button",
+    "Added ability to customize user agent",
+  ],
   "0.2.30": [
     "Added -b --bind flag to specify the host to bind the server to",
     "Added first version of favicon",
