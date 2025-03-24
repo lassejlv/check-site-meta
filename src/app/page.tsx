@@ -13,6 +13,7 @@ import { getUserSettings } from "./lib/get-settings";
 import { LinkPreviewPanel } from "./_view/LinkPreview";
 import { InputForm } from "./_view/inputs/InputForm";
 import { RecentSuggestions } from "./_view/inputs/InputSuggestions";
+import { AdvancedPanel } from "./_view/advanced/AdvancedPanel";
 
 // Structure:
 // 
@@ -71,17 +72,11 @@ export default async function Home(context: SearchParamsContext) {
           </Suspense>
         </div>
 
-        <div className="col-span-2">
+        <div className="col-span-2 flex flex-col">
+
           <Suspense key={searchId}>
             {query.url && getSiteMetadata(query.url)
-              .then(metadata => (
-                <MetaCard>
-                  <div className="pt-4">raw HTML</div>
-                  <pre key="r" className="card-content fadeBlurIn-100 overflow-auto text-xs text-foreground-body">
-                    {`Only <head> is shown: \n\n`}{metadata.html?.split('<body')[0].replaceAll('/><', '/>\n<').replaceAll(/<style[^>]*>[\s\S]*?<\/style>/g, '<style>...</style>')}
-                  </pre>
-                </MetaCard>
-              ))
+              .then(metadata => <AdvancedPanel metadata={metadata} />)
               .catch(err => <ErrorCard error={err} />)
             }
           </Suspense>
