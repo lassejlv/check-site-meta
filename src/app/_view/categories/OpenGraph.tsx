@@ -1,7 +1,7 @@
+import type { ResoledMetadata } from "@/app/lib/get-metadata-field-data"
+import { AppImage } from "@/app/module/image/Image"
 import { Fragment } from "react"
-import type { ResoledMetadata } from "../lib/get-metadata-field-data"
-import { AppImage } from "../module/image/Image"
-import { MetadataRow } from "./MetadataRow"
+import { MetadataRow } from "../MetadataRow"
 
 export function OpengraphMetadata(
   props: { m: ResoledMetadata }

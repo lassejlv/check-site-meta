@@ -6,10 +6,10 @@ import { Suspense, type ComponentProps } from "react";
 import { FaviconPreview, IconListPreviewMetadataItem } from "./Favicon";
 import { appFetch } from "../lib/fetch";
 import { px } from "../lib/unit";
-import { OpengraphMetadata } from "./OpenGraph";
 import { cn } from "lazy-cn";
 import { getImageSizeFromResponse } from "../lib/image-size";
 import type { SiteMetadata } from "../page";
+import { OpengraphMetadata } from "./categories/OpenGraph";
 
 export async function MetaInfoPanel(props: {
   metadata: SiteMetadata,

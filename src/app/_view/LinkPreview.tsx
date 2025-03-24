@@ -1,13 +1,13 @@
 import { cn } from "lazy-cn";
 import { Suspense, type ComponentProps, type ReactNode, type SVGProps } from "react";
-import { PreviewDiscord } from "../_previews/PreviewDiscord";
-import { PreviewFacebook } from "../_previews/PreviewFacebook";
-import { PreviewGoogle } from "../_previews/PreviewGoogle";
-import { PreviewTwitter } from "../_previews/PreviewTwitter";
 import { StaticTooltip, TooltipBase } from "../lib/Tooltip";
 import { tab } from "../module/tab/tab-primitives";
 import { TabsWithContent } from "../module/tab/Tabs";
 import { SiteMetadata } from "../page";
+import { PreviewDiscord } from "./previews/PreviewDiscord";
+import { PreviewFacebook } from "./previews/PreviewFacebook";
+import { PreviewGoogle } from "./previews/PreviewGoogle";
+import { PreviewTwitter } from "./previews/PreviewTwitter";
 
 
 export async function LinkPreviewPanel(

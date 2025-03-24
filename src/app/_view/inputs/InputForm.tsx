@@ -1,15 +1,14 @@
 "use client"
 
 import { logCheckButton } from "@/app/lib/analytics"
+import type { UserSettings } from "@/app/lib/get-settings"
+import { recentSuggestionsLocal } from "@/app/lib/localstorage"
+import { parseUrlFromQuery } from "@/app/lib/parse-url"
+import { useAppNavigation } from "@/app/lib/searchParams"
 import { cn } from "lazy-cn"
 import Form from "next/form"
 import { useEffect, useRef, useState, type ComponentProps, type SVGProps } from "react"
-import { recentSuggestionsLocal } from "../lib/localstorage"
-import { useAppNavigation } from "../lib/searchParams"
-import { TextArea } from "../lib/textarea"
 import { InputSettings } from "./InputSettings"
-import type { UserSettings } from "../lib/get-settings"
-import { parseUrlFromQuery } from "../lib/parse-url"
 
 export function InputForm(props: {
   query: Record<string, string | string[] | undefined>,

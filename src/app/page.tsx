@@ -7,12 +7,12 @@ import { MetaCard, MetaInfoPanel } from "./_view/MetaInfo";
 import { cn } from "lazy-cn";
 import { getVersion } from "./lib/version";
 import { ThemeSwitcher } from "./theme-switch";
-import { InputForm } from "./_inputs/InputForm";
-import { RecentSuggestions } from "./_inputs/InputSuggestions";
 import { changelog } from "../../changelog"
 import ErrorCard from "./module/error/ErrorCard";
 import { getUserSettings } from "./lib/get-settings";
 import { LinkPreviewPanel } from "./_view/LinkPreview";
+import { InputForm } from "./_view/inputs/InputForm";
+import { RecentSuggestions } from "./_view/inputs/InputSuggestions";
 
 // Structure:
 // 

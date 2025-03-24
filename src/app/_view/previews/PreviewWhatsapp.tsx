@@ -1,7 +1,7 @@
 import type { ComponentProps } from "react";
-import type { ResoledMetadata } from "../lib/get-metadata-field-data";
 import { MessageList, PreviewMenu, PreviewPanelContent, type PreviewMessages } from "./Preview";
 import { PreviewFrame } from "./Preview.client";
+import type { ResoledMetadata } from "@/app/lib/get-metadata-field-data";
 
 export async function PreviewWhatsapp(
   { metadata, className, ...props }: ComponentProps<"div"> & {

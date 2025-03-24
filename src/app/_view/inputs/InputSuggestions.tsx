@@ -2,8 +2,8 @@
 
 import { useEffect, useState, type ComponentProps } from "react"
 import { cn } from "lazy-cn"
-import { useAppNavigation } from "../lib/searchParams"
-import { recentSuggestionsLocal } from "../lib/localstorage"
+import { recentSuggestionsLocal } from "@/app/lib/localstorage"
+import { useAppNavigation } from "@/app/lib/searchParams"
 
 export function RecentSuggestions(props: {
   hidden: boolean,

@@ -1,12 +1,12 @@
-import { appFetch } from "../lib/fetch";
-import type { ResoledMetadata } from "../lib/get-metadata-field-data";
-import { AppImage } from "../module/image/Image";
 import type { ComponentProps, SVGProps } from "react";
 import { cn } from "lazy-cn";
-import { getImageSizeFromResponse } from '../lib/image-size';
 import { PreviewPanelContent, MessageList, type PreviewMessages, PreviewMenu } from './Preview';
 import { PreviewFrame, PreviewThemeSwitcher } from './Preview.client';
-import { MaterialSymbolsDarkModeOutline, MaterialSymbolsLightModeOutline } from '../theme-switch';
+import { appFetch } from "@/app/lib/fetch";
+import type { ResoledMetadata } from "@/app/lib/get-metadata-field-data";
+import { getImageSizeFromResponse } from "@/app/lib/image-size";
+import { AppImage } from "@/app/module/image/Image";
+import { MaterialSymbolsLightModeOutline, MaterialSymbolsDarkModeOutline } from "@/app/theme-switch";
 
 export async function PreviewTwitter(
   { metadata, className, ...props }: { metadata: ResoledMetadata } & ComponentProps<"div">

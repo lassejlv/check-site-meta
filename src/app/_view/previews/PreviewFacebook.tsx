@@ -1,13 +1,12 @@
 import type { ComponentProps, SVGProps } from "react";
-import type { ResoledMetadata } from "../lib/get-metadata-field-data";
 import { MessageList, PreviewMenu, PreviewPanelContent, type PreviewMessages } from "./Preview";
 import { PreviewFrame, PreviewThemeSwitcher } from "./Preview.client";
-import { tab } from "../module/tab/tab-primitives";
-import { MaterialSymbolsDarkModeOutline, MaterialSymbolsLightModeOutline } from "../theme-switch";
 import { cn } from "lazy-cn";
-import { AppImage } from "../module/image/Image";
-import { getImageSizeFromResponse } from "../lib/image-size";
-import { appFetch } from "../lib/fetch";
+import { appFetch } from "@/app/lib/fetch";
+import type { ResoledMetadata } from "@/app/lib/get-metadata-field-data";
+import { getImageSizeFromResponse } from "@/app/lib/image-size";
+import { AppImage } from "@/app/module/image/Image";
+import { MaterialSymbolsLightModeOutline, MaterialSymbolsDarkModeOutline } from "@/app/theme-switch";
 
 export async function PreviewFacebook(
   { metadata, className, ...props }: ComponentProps<"div"> & {

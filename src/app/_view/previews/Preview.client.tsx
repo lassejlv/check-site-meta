@@ -1,10 +1,10 @@
 "use client"
 
+import { useAppNavigation } from "@/app/lib/searchParams"
+import { TabList } from "@/app/module/tab/TabRoot"
 import { cn } from "lazy-cn"
 import { useSearchParams } from "next/navigation"
 import { useEffect, type ComponentProps, type CSSProperties, type ReactNode } from "react"
-import { TabList } from "../module/tab/TabRoot"
-import { useAppNavigation } from "../lib/searchParams"
 
 export function PreviewFrame(
   { className, themes, themeId, ...props }: ComponentProps<"div"> & {

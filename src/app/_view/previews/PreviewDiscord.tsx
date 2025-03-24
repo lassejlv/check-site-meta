@@ -1,13 +1,13 @@
 import type { ComponentProps } from "react";
-import type { ResoledMetadata } from "../lib/get-metadata-field-data";
 import { cn } from "lazy-cn";
-import { AppImage } from "../module/image/Image";
-import { appFetch } from "../lib/fetch";
 import imageSize from "image-size";
 import { MessageList, PreviewMenu, PreviewPanelContent, type PreviewMessages } from "./Preview";
-import { validateHex } from "../lib/hex";
 import { PreviewFrame, PreviewThemeSwitcher } from "./Preview.client";
-import { MaterialSymbolsDarkModeOutline, MaterialSymbolsLightModeOutline } from "../theme-switch";
+import { appFetch } from "@/app/lib/fetch";
+import type { ResoledMetadata } from "@/app/lib/get-metadata-field-data";
+import { validateHex } from "@/app/lib/hex";
+import { AppImage } from "@/app/module/image/Image";
+import { MaterialSymbolsDarkModeOutline, MaterialSymbolsLightModeOutline } from "@/app/theme-switch";
 
 export async function PreviewDiscord(
   { metadata, className, ...props }: ComponentProps<"div"> & {

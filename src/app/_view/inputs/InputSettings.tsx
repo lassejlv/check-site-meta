@@ -1,9 +1,9 @@
 import { cn } from "lazy-cn";
 import { useEffect, useState, type ComponentProps } from "react";
 import { FormButton, MaterialSymbolsCloseRounded } from "./InputForm";
-import { TextArea } from "../lib/textarea";
-import type { UserSettings } from "../lib/get-settings";
-import { defaultUserAgent } from "../lib/fetch-defaults";
+import { TextArea } from "../../lib/textarea";
+import type { UserSettings } from "../../lib/get-settings";
+import { defaultUserAgent } from "../../lib/fetch-defaults";
 
 export function InputSettingModal(props: ComponentProps<"dialog">) {
   return (
