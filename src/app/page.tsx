@@ -3,7 +3,7 @@ import { getMetadataValues, fetchRoot } from "./lib/get-metadata";
 import { parseUrlFromQuery } from "./lib/parse-url";
 import type { SearchParamsContext } from "./lib/next-types";
 import { getResolvedMetadata } from "./lib/get-metadata-field-data";
-import { MetaInfoPanel } from "./page.meta-info";
+import { MetaCard, MetaInfoPanel } from "./page.meta-info";
 import { LinkPreviewPanel } from "./page.link-preview";
 import { cn } from "lazy-cn";
 import { getVersion } from "./lib/version";
@@ -44,7 +44,7 @@ export default async function Home(context: SearchParamsContext) {
         "lg:grid lg:grid-cols-2 gap-x-8"
       )}>
         {/* Primary Panel */}
-        <div className="flex flex-col min-h-screen py-12">
+        <div className="flex flex-col min-h-80 py-12">
           <Header hidden={hideHome} />
           <InputForm
             query={query}
@@ -70,6 +70,23 @@ export default async function Home(context: SearchParamsContext) {
             }
           </Suspense>
         </div>
+
+        <div className="col-span-2">
+          <Suspense key={searchId}>
+            {query.url && getSiteMetadata(query.url)
+              .then(metadata => (
+                <MetaCard>
+                  <div className="pt-4">raw HTML</div>
+                  <pre key="r" className="card-content fadeBlurIn-100 overflow-auto text-xs text-foreground-body">
+                    {`Only <head> is shown: \n\n`}{metadata.html?.split('<body')[0].replaceAll('/><', '/>\n<').replaceAll(/<style[^>]*>[\s\S]*?<\/style>/g, '<style>...</style>')}
+                  </pre>
+                </MetaCard>
+              ))
+              .catch(err => <ErrorCard error={err} />)
+            }
+          </Suspense>
+        </div>
+
       </main>
       <Footer />
     </>

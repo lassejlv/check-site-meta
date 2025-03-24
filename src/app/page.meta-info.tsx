@@ -1,4 +1,3 @@
-import ErrorCard from "./module/error/ErrorCard";
 import { tab } from "./module/tab/tab-primitives";
 import { TabsWithContent } from "./module/tab/Tabs";
 import { type MetadataMetadataItem, type ResoledMetadata } from "./lib/get-metadata-field-data";
@@ -57,20 +56,12 @@ export async function MetaInfoPanel(props: {
             </MetaCardContent>
           </MetaCard>
         ),
-        tab(
-          "Raw",
-          <MetaCard>
-            <pre key="r" className="card-content fadeBlurIn-100 overflow-auto text-xs text-foreground-body">
-              {`Only <head> is shown: \n\n`}{head?.split('<body')[0].replaceAll('/><', '/>\n<').replaceAll(/<style[^>]*>[\s\S]*?<\/style>/g, '<style>...</style>')}
-            </pre>
-          </MetaCard>
-        ),
       ]}>
     </TabsWithContent>
   );
 }
 
-function MetaCard({ className, ...props }: ComponentProps<"section">) {
+export function MetaCard({ className, ...props }: ComponentProps<"section">) {
   return (<section className={cn("card fadeIn-0", className)} {...props} />)
 }
 function MetaCardContent({ className, ...props }: ComponentProps<"div">) {

@@ -50,18 +50,18 @@ export async function LinkPreviewPanel(
             </LinkPreviewPanelTooltip>,
             <PreviewFacebook key="f" metadata={metadata} className="fadeIn-0" />
           ),
-          tab(
-            <LinkPreviewPanelTooltip label="Whatsapp">
-              <IcBaselineWhatsapp style={{ "--c": "#65D072" }} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
-            </LinkPreviewPanelTooltip>,
-            <PreviewWhatsapp key="w" metadata={metadata} className="fadeIn-0" />
-          ),
-          tab(
-            <LinkPreviewPanelTooltip label="Telegram">
-              <IcBaselineTelegram style={{ "--c": "#2AABEE" }} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
-            </LinkPreviewPanelTooltip>,
-            <ComingSoon />
-          ),
+          // tab(
+          //   <LinkPreviewPanelTooltip label="Whatsapp">
+          //     <IcBaselineWhatsapp style={{ "--c": "#65D072" }} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
+          //   </LinkPreviewPanelTooltip>,
+          //   <PreviewWhatsapp key="w" metadata={metadata} className="fadeIn-0" />
+          // ),
+          // tab(
+          //   <LinkPreviewPanelTooltip label="Telegram">
+          //     <IcBaselineTelegram style={{ "--c": "#2AABEE" }} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
+          //   </LinkPreviewPanelTooltip>,
+          //   <ComingSoon />
+          // ),
         ]} />
     </Suspense>
   )
