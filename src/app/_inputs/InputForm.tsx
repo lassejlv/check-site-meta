@@ -65,7 +65,7 @@ export function InputForm(props: {
           className="self-end shrink-0 h-11 closed:w-24 w-0 min-w-0 flex items-center justify-start transition-all overflow-hidden"
           data-closed={props.query.url ? "" : undefined}
         >
-          <FormButton type="submit" onClick={() => {
+          <FormButton type="button" onClick={() => {
             window.open(parseUrlFromQuery(props.query['url']!), "_blank");
           }}>
             <MaterialSymbolsOpenInNew className="w-4 h-4" />
