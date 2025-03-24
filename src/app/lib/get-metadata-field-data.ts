@@ -11,7 +11,7 @@ export type MetadataMetadataItem = {
   values?: any[],
 }
 
-export function getResolvedMeta(m: Metadata) {
+export function getResolvedMetadata(m: Metadata) {
 
   const resolveUrl = (url?: string) => {
     if (!url) return undefined
@@ -349,7 +349,7 @@ export function getResolvedMeta(m: Metadata) {
   return data
 }
 
-export type ResoledMetadata = ReturnType<typeof getResolvedMeta>
+export type ResoledMetadata = ReturnType<typeof getResolvedMetadata>
 
 export const separator = { separator: true } as const
 

@@ -3,6 +3,10 @@ import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { cn } from "lazy-cn";
 import "./globals.css";
 
+
+// Metadata -----------------------------
+
+
 export const metadata: Metadata = {
   title: "Check Site Meta",
   description: "Check the metadata of any site.",
@@ -15,11 +19,18 @@ export const viewport: Viewport = {
   colorScheme: "light dark"
 }
 
+
+// Components -----------------------------
+
+
 export default function RootLayout(props: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning style={{
+      scrollBehavior: "smooth",
+      overflowAnchor: "none",
+    }}>
       <head>
         <ThemeScript />
         <meta name="version" content={process.env['CSM_VERSION']} />
@@ -46,7 +57,6 @@ const mono = JetBrains_Mono({
   variable: "--font-gm",
   subsets: ["latin"],
 });
-
 
 // Scripts -----------------------------
 

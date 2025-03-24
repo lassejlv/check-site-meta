@@ -10,68 +10,64 @@ import { px } from "./lib/unit";
 import { OpengraphMetadata } from "./_view/OpenGraph";
 import { cn } from "lazy-cn";
 import { getImageSizeFromResponse } from "./lib/image-size";
+import type { SiteMetadata } from "./page";
 
 export async function MetaInfoPanel(props: {
-  metadata: Promise<ResoledMetadata | null>,
-  head: Promise<string | null>,
+  metadata: SiteMetadata,
 }) {
-  try {
-    const metadata = await props.metadata;
-    if (!metadata) return null
+  const metadata = props.metadata.resolved;
+  if (!metadata) return null
 
-    const head = await props.head;
+  const head = props.metadata.html;
 
-    return (
-      <TabsWithContent
-        className="fadeInFromLeft-0"
-        id="info"
-        tabs={[
-          tab(
-            "General",
-            <MetaCard>
-              <MetaCardContent key="g">
-                <SummaryMetadata m={metadata} />
-              </MetaCardContent>
-            </MetaCard>
-          ),
-          tab(
-            "Open Graph",
-            <MetaCard>
-              <MetaCardContent key="og">
-                <OpengraphMetadata m={metadata} />
-              </MetaCardContent>
-            </MetaCard>
-          ),
-          tab(
-            "Twitter",
-            <MetaCard>
-              <MetaCardContent key="t">
-                <TwitterMetadata m={metadata} />
-              </MetaCardContent>
-            </MetaCard>
-          ),
-          tab(
-            "Icons",
-            <MetaCard>
-              <MetaCardContent key="i">
-                <IconMetadata data={metadata} />
-              </MetaCardContent>
-            </MetaCard>
-          ),
-          tab(
-            "Raw",
-            <MetaCard>
-              <pre key="r" className="card-content fadeBlurIn-100 overflow-auto text-xs text-foreground-body">
-                {`Only <head> is shown: \n\n`}{head?.split('<body')[0].replaceAll('/><', '/>\n<').replaceAll(/<style[^>]*>[\s\S]*?<\/style>/g, '<style>...</style>')}
-              </pre>
-            </MetaCard>
-          ),
-        ]}>
-      </TabsWithContent>
-    );
-  } catch (error) {
-    return <ErrorCard error={error} />;
-  }
+  return (
+    <TabsWithContent
+      className="fadeInFromLeft-0"
+      id="info"
+      tabs={[
+        tab(
+          "General",
+          <MetaCard>
+            <MetaCardContent key="g">
+              <SummaryMetadata m={metadata} />
+            </MetaCardContent>
+          </MetaCard>
+        ),
+        tab(
+          "Open Graph",
+          <MetaCard>
+            <MetaCardContent key="og">
+              <OpengraphMetadata m={metadata} />
+            </MetaCardContent>
+          </MetaCard>
+        ),
+        tab(
+          "Twitter",
+          <MetaCard>
+            <MetaCardContent key="t">
+              <TwitterMetadata m={metadata} />
+            </MetaCardContent>
+          </MetaCard>
+        ),
+        tab(
+          "Icons",
+          <MetaCard>
+            <MetaCardContent key="i">
+              <IconMetadata data={metadata} />
+            </MetaCardContent>
+          </MetaCard>
+        ),
+        tab(
+          "Raw",
+          <MetaCard>
+            <pre key="r" className="card-content fadeBlurIn-100 overflow-auto text-xs text-foreground-body">
+              {`Only <head> is shown: \n\n`}{head?.split('<body')[0].replaceAll('/><', '/>\n<').replaceAll(/<style[^>]*>[\s\S]*?<\/style>/g, '<style>...</style>')}
+            </pre>
+          </MetaCard>
+        ),
+      ]}>
+    </TabsWithContent>
+  );
 }
 
 function MetaCard({ className, ...props }: ComponentProps<"section">) {

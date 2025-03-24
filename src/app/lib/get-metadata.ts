@@ -23,7 +23,7 @@ export const fetchRoot = cache(async function getRoot(url: string) {
   }
 })
 
-export function getRawMeta(root: HTMLElement, rawUrl: string) {
+export function getMetadataValues(root: HTMLElement, rawUrl: string) {
   try {
     return {
       general: {
@@ -172,7 +172,7 @@ function fromMetaTagWithPropertyArray(root: HTMLElement, key: string) {
 }
 
 
-export type Metadata = ReturnType<typeof getRawMeta>
+export type Metadata = ReturnType<typeof getMetadataValues>
 
 
 export const dynamic = 'force-dynamic'

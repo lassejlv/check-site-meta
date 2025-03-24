@@ -9,64 +9,62 @@ import { StaticTooltip, TooltipBase } from "./_view/Tooltip";
 import { PreviewGoogle } from "./_previews/PreviewGoogle";
 import { PreviewFacebook } from "./_previews/PreviewFacebook";
 import { PreviewWhatsapp } from "./_previews/PreviewWhatsapp";
+import type { SiteMetadata } from "./page";
 
 export async function LinkPreviewPanel(
-  props: { metadata: Promise<ResoledMetadata | null> }
+  props: { metadata: SiteMetadata }
 ) {
-  try {
-    const metadata = await props.metadata;
-    if (!metadata) return null
-    return (
-      <Suspense fallback={<span className="fadeIn-0 p-3">Loading...</span>}>
-        <TabsWithContent
-          id="preview"
-          className="tab fadeIn-50 tab-item:p-[var(--p)] tab-item:px-[var(--px)] svg:size-5 gap-0"
-          style={{
-            "--p": "0.5rem",
-            "--px": "0.75rem",
-          }}
-          tabs={[
-            tab(
-              <LinkPreviewPanelTooltip label="X/Twitter">
-                <RiTwitterXFill className="transition group-data-active:text-foreground" />
-              </LinkPreviewPanelTooltip>,
-              <PreviewTwitter key="x" metadata={metadata} className="fadeIn-100" />
-            ),
-            tab(
-              <LinkPreviewPanelTooltip label="Discord">
-                <IcBaselineDiscord style={{ "--c": "#5865F2" }} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
-              </LinkPreviewPanelTooltip>,
-              <PreviewDiscord key="d" metadata={metadata} className="fadeIn-0" />
-            ),
-            tab(
-              <LinkPreviewPanelTooltip label="Google">
-                <LogosGoogleIcon className="p-0.5" />
-              </LinkPreviewPanelTooltip>,
-              <PreviewGoogle key="g" metadata={metadata} className="fadeIn-0" />
-            ),
-            tab(
-              <LinkPreviewPanelTooltip label="Facebook">
-                <IcBaselineFacebook style={{ "--c": "#1877f2" }} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
-              </LinkPreviewPanelTooltip>,
-              <PreviewFacebook key="f" metadata={metadata} className="fadeIn-0" />
-            ),
-            tab(
-              <LinkPreviewPanelTooltip label="Whatsapp">
-                <IcBaselineWhatsapp style={{ "--c": "#65D072" }} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
-              </LinkPreviewPanelTooltip>,
-              <PreviewWhatsapp key="w" metadata={metadata} className="fadeIn-0" />
-            ),
-            tab(
-              <LinkPreviewPanelTooltip label="Telegram">
-                <IcBaselineTelegram style={{ "--c": "#2AABEE" }} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
-              </LinkPreviewPanelTooltip>,
-              <ComingSoon />
-            ),
-          ]} />
-      </Suspense>
-    )
-  } catch { }
-  return null
+  const metadata = props.metadata.resolved;
+  if (!metadata) return null
+  return (
+    <Suspense fallback={<span className="fadeIn-0 p-3">Loading...</span>}>
+      <TabsWithContent
+        id="preview"
+        className="tab fadeIn-50 tab-item:p-[var(--p)] tab-item:px-[var(--px)] svg:size-5 gap-0"
+        style={{
+          "--p": "0.5rem",
+          "--px": "0.75rem",
+        }}
+        tabs={[
+          tab(
+            <LinkPreviewPanelTooltip label="X/Twitter">
+              <RiTwitterXFill className="transition group-data-active:text-foreground" />
+            </LinkPreviewPanelTooltip>,
+            <PreviewTwitter key="x" metadata={metadata} className="fadeIn-100" />
+          ),
+          tab(
+            <LinkPreviewPanelTooltip label="Discord">
+              <IcBaselineDiscord style={{ "--c": "#5865F2" }} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
+            </LinkPreviewPanelTooltip>,
+            <PreviewDiscord key="d" metadata={metadata} className="fadeIn-0" />
+          ),
+          tab(
+            <LinkPreviewPanelTooltip label="Google">
+              <LogosGoogleIcon className="p-0.5" />
+            </LinkPreviewPanelTooltip>,
+            <PreviewGoogle key="g" metadata={metadata} className="fadeIn-0" />
+          ),
+          tab(
+            <LinkPreviewPanelTooltip label="Facebook">
+              <IcBaselineFacebook style={{ "--c": "#1877f2" }} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
+            </LinkPreviewPanelTooltip>,
+            <PreviewFacebook key="f" metadata={metadata} className="fadeIn-0" />
+          ),
+          tab(
+            <LinkPreviewPanelTooltip label="Whatsapp">
+              <IcBaselineWhatsapp style={{ "--c": "#65D072" }} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
+            </LinkPreviewPanelTooltip>,
+            <PreviewWhatsapp key="w" metadata={metadata} className="fadeIn-0" />
+          ),
+          tab(
+            <LinkPreviewPanelTooltip label="Telegram">
+              <IcBaselineTelegram style={{ "--c": "#2AABEE" }} className="transition group-hover:text-(--c) group-data-active:text-(--c)" />
+            </LinkPreviewPanelTooltip>,
+            <ComingSoon />
+          ),
+        ]} />
+    </Suspense>
+  )
 }
 
 

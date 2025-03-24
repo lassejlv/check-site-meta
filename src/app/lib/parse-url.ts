@@ -1,9 +1,9 @@
 import { AppError } from "../module/error/error-primitives"
 
-export function parseUrlFromQuery(query?: string | string[]) {
+export function parseUrlFromQuery(query: string | string[]) {
 
   let inferredUrl = Array.isArray(query) ? query[0] : query
-  if (!inferredUrl) return null
+  // if (!inferredUrl) return null
 
   if (inferredUrl.startsWith("localhost")) {
     inferredUrl = "http://" + inferredUrl

@@ -1,8 +1,8 @@
-import { Fragment, Suspense, type ComponentProps } from "react";
-import { getRawMeta, fetchRoot } from "./lib/get-metadata";
+import { Fragment, Suspense, type ComponentProps, type ReactNode } from "react";
+import { getMetadataValues, fetchRoot } from "./lib/get-metadata";
 import { parseUrlFromQuery } from "./lib/parse-url";
 import type { SearchParamsContext } from "./lib/next-types";
-import { getResolvedMeta } from "./lib/get-metadata-field-data";
+import { getResolvedMetadata } from "./lib/get-metadata-field-data";
 import { MetaInfoPanel } from "./page.meta-info";
 import { LinkPreviewPanel } from "./page.link-preview";
 import { cn } from "lazy-cn";
@@ -11,6 +11,8 @@ import { ThemeSwitcher } from "./theme-switch";
 import { InputForm } from "./_inputs/InputForm";
 import { RecentSuggestions } from "./_inputs/InputSuggestions";
 import { changelog } from "../../changelog"
+import ErrorCard from "./module/error/ErrorCard";
+import { getUserSettings } from "./lib/get-settings";
 
 // Structure:
 // 
@@ -28,48 +30,44 @@ import { changelog } from "../../changelog"
 // 
 
 export default async function Home(context: SearchParamsContext) {
+
   const query = await context.searchParams;
   const hideHome = !!query.url
-
-  const getMetadata = async () => {
-    const url = parseUrlFromQuery(query.url)
-    if (!url) return null
-    const { root } = await fetchRoot(url.toString())
-    const metadata = getRawMeta(root, url.toString())
-    const resolvedMetadata = getResolvedMeta(metadata)
-    return resolvedMetadata
-  }
-
-  const getHead = async () => {
-    const url = parseUrlFromQuery(query.url)
-    if (!url) return null
-    const { html } = await fetchRoot(url.toString())
-    return html
-  }
-
   const searchId = Math.random()
+  const settings = await getUserSettings()
 
   return (
     <>
       <main className={cn(
-        "container-sm lg:container-2xl font-medium  font-sans",
+        "container-sm lg:container-2xl font-medium font-sans",
         "px-8 lg:px-12 xl:px-24 pb-40",
         "lg:grid lg:grid-cols-2 gap-x-8"
       )}>
+        {/* Primary Panel */}
         <div className="flex flex-col min-h-screen py-12">
           <Header hidden={hideHome} />
-          <InputForm query={query} />
+          <InputForm
+            query={query}
+            settings={settings} />
           <RecentSuggestions hidden={hideHome} />
-          <Suspense key={searchId} fallback={<Loading />}>
-            <div className="flex flex-col gap-8 pt-8">
-              <MetaInfoPanel metadata={getMetadata()} head={getHead()} />
-            </div>
-          </Suspense>
+          <div className="flex flex-col gap-8 pt-8">
+            <Suspense key={searchId} fallback={<Loading />}>
+              {query.url && getSiteMetadata(query.url)
+                .then(metadata => <MetaInfoPanel metadata={metadata} />)
+                .catch(err => <ErrorCard error={err} />)
+              }
+            </Suspense>
+          </div>
         </div>
+
+        {/* Secondary Panel */}
         <div className="flex flex-col items-center gap-8 pt-15 pb-12">
           <Changelog hidden={hideHome} />
           <Suspense key={searchId}>
-            <LinkPreviewPanel metadata={getMetadata()} />
+            {query.url && getSiteMetadata(query.url)
+              .then(metadata => <LinkPreviewPanel metadata={metadata} />)
+              .catch(err => null)
+            }
           </Suspense>
         </div>
       </main>
@@ -78,13 +76,29 @@ export default async function Home(context: SearchParamsContext) {
   );
 }
 
+// Data Getter -----------------------------
+
+async function getSiteMetadata(query: string | string[]) {
+  const url = parseUrlFromQuery(query)
+  const { root, html } = await fetchRoot(url.toString())
+  const metadata = getMetadataValues(root, url.toString())
+  const resolved = getResolvedMetadata(metadata)
+  return { resolved, html, root }
+}
+export type SiteMetadata = Awaited<ReturnType<typeof getSiteMetadata>>
+
+
+
+
 // Components -----------------------------
 
 
 function Header(props: {
   hidden: boolean
 }) {
-  return <header className="collapsible-row-grid-700 closed:collapse-row group" data-closed={props.hidden ? "" : undefined}>
+  return <header className="collapsible-row-grid-700 closed:collapse-row group" data-closed={props.hidden ? "" : undefined} style={{
+    overflowAnchor: 'none',
+  }}>
     <div className="min-h-0">
       <div className="mb-12 mt-20 text-center lg:text-start flex flex-col items-center lg:block g-closed:opacity-0 g-closed:translate-y-10 transition duration-700">
         <div className="text-5xl md:text-6xl lg:text-5xl xl:text-6xl  tracking-[-0.08em] font-mono header-fill font-bold">
@@ -167,47 +181,3 @@ function Changelog(props: {
     </div>
   )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// DEBUG
-
-async function RawHTML(
-  prop: { url: string | string[] | undefined }
-) {
-  const getHTML = async () => {
-    const url = parseUrlFromQuery(prop.url)
-    if (!url) return null
-    const { html } = await fetchRoot(url.toString())
-    return html
-  }
-
-  return (
-    <Suspense>
-      <div className="fadeIn-500">
-        <pre className="whitespace-pre-wrap break-all">{await getHTML().catch(err => null)}</pre>
-      </div>
-    </Suspense>
-  )
-}
-
-
