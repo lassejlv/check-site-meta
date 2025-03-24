@@ -11,7 +11,7 @@ export function TextArea(props: ComponentProps<'textarea'>) {
 
   useEffect(() => {
     adjustHeight(); // Adjust height on mount (for initial value)
-  }, []);
+  }, [props.value]);
 
 
   return <textarea {...props}

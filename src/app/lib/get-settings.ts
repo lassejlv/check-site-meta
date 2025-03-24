@@ -1,5 +1,5 @@
 import { cookies } from "next/headers"
-import { defaultUserAgent } from "./fetch"
+import { defaultUserAgent } from "./fetch-defaults"
 
 export async function getUserSettings() {
   const cookie = await cookies()

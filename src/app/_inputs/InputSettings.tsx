@@ -1,8 +1,9 @@
 import { cn } from "lazy-cn";
-import type { ComponentProps } from "react";
+import { useEffect, useState, type ComponentProps } from "react";
 import { FormButton, MaterialSymbolsCloseRounded } from "./InputForm";
 import { TextArea } from "../lib/textarea";
 import type { UserSettings } from "../lib/get-settings";
+import { defaultUserAgent } from "../lib/fetch-defaults";
 
 export function InputSettingModal(props: ComponentProps<"dialog">) {
   return (
@@ -33,6 +34,14 @@ export function InputSettings(props: {
   settings: UserSettings
   onSettingsClose: () => void
 }) {
+  const [ua, setUA] = useState(props.settings.userAgent)
+  useEffect(() => {
+    if (ua !== defaultUserAgent) {
+      document.cookie = `userAgent=${ encodeURIComponent(ua) }`
+    } else {
+      document.cookie = `userAgent=`
+    }
+  }, [ua])
   return (
     <div className="card mt-4 relative flex flex-col gap-4">
       <FormButton className="absolute p-1 top-2 right-2" type="button" onClick={props.onSettingsClose}>
@@ -44,21 +53,34 @@ export function InputSettings(props: {
         <div className="text-foreground-muted">Configure how check-site-meta behaves when fetching website metadata</div>
       </header>
 
-      <label className="flex flex-col font-mono">
-        <span className="text-xs text-foreground-muted">user agent <button>(reset)</button></span>
+      <div className="flex flex-col font-mono">
+        <label className="">
+          <span className="text-xs text-foreground-muted">
+            user agent{' '}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation()
+                setUA(defaultUserAgent)
+              }}
+              className="font-normal hover:underline">
+              (reset)
+            </button></span>
+        </label>
 
         <div className="relative flex flex-col mt-1">
           <TextArea className="border border-border rounded-md p-2 text-sm  focus:outline-border  font-normal tracking-tight overflow-hidden resize-none"
-            defaultValue={props.settings.userAgent}
-            onChange={(e) => {
-              document.cookie = `userAgent=${ encodeURIComponent(e.target.value) }`
-            }}
+            value={ua ?? ""}
+            onChange={(e) => setUA(e.target.value)}
           />
         </div>
-      </label>
-      
+      </div>
+
+
       <div className="flex gap-2 justify-end">
-          <button type="button" className="p-2 px-4 bg-foreground text-background rounded-md">Reset All</button>
+        <button type="button" className="p-2 px-4 bg-foreground text-background rounded-md" onClick={() => {
+          setUA(defaultUserAgent)
+        }}>Reset All</button>
       </div>
     </div>
   )
