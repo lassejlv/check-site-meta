@@ -305,6 +305,7 @@ body {
 /* Header */
 
 @custom-variant closed (&[data-closed]);
+@custom-variant opened (&[data-opened]);
 @custom-variant g-closed (&:is(:where(.group)[data-closed] *));
 
 @utility header-fill {
