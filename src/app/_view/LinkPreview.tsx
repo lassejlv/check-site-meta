@@ -1,15 +1,14 @@
-import { Suspense, type ComponentProps, type ReactNode, type SVGProps } from "react";
-import { type ResoledMetadata } from "./lib/get-metadata-field-data";
-import { tab } from "./module/tab/tab-primitives";
-import { TabsWithContent } from "./module/tab/Tabs";
-import { PreviewTwitter } from "./_previews/PreviewTwitter";
-import { PreviewDiscord } from "./_previews/PreviewDiscord";
 import { cn } from "lazy-cn";
-import { StaticTooltip, TooltipBase } from "./_view/Tooltip";
-import { PreviewGoogle } from "./_previews/PreviewGoogle";
-import { PreviewFacebook } from "./_previews/PreviewFacebook";
-import { PreviewWhatsapp } from "./_previews/PreviewWhatsapp";
-import type { SiteMetadata } from "./page";
+import { Suspense, type ComponentProps, type ReactNode, type SVGProps } from "react";
+import { PreviewDiscord } from "../_previews/PreviewDiscord";
+import { PreviewFacebook } from "../_previews/PreviewFacebook";
+import { PreviewGoogle } from "../_previews/PreviewGoogle";
+import { PreviewTwitter } from "../_previews/PreviewTwitter";
+import { StaticTooltip, TooltipBase } from "../lib/Tooltip";
+import { tab } from "../module/tab/tab-primitives";
+import { TabsWithContent } from "../module/tab/Tabs";
+import { SiteMetadata } from "../page";
+
 
 export async function LinkPreviewPanel(
   props: { metadata: SiteMetadata }

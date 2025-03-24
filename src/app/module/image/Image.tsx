@@ -20,7 +20,7 @@ export function AppImage(
   }
 
   if (error && onErrorFallback) {
-    console.log("Hello???")
+    // console.log("Hello???")
     return onErrorFallback
   }
 
@@ -34,7 +34,7 @@ export function AppImage(
         e.currentTarget.src = src
         usingProxyRef.current = true
       } else {
-        console.error("Failed to load image", src)
+        console.log("Failed to load image", src)
         setError(true)
       }
     }}

@@ -1,15 +1,15 @@
-import { tab } from "./module/tab/tab-primitives";
-import { TabsWithContent } from "./module/tab/Tabs";
-import { type MetadataMetadataItem, type ResoledMetadata } from "./lib/get-metadata-field-data";
-import { ExternalIcon, MetadataRow, Separator } from "./_view/MetadataRow";
+import { tab } from "../module/tab/tab-primitives";
+import { TabsWithContent } from "../module/tab/Tabs";
+import { type MetadataMetadataItem, type ResoledMetadata } from "../lib/get-metadata-field-data";
+import { ExternalIcon, MetadataRow, Separator } from "./MetadataRow";
 import { Suspense, type ComponentProps } from "react";
-import { FaviconPreview, IconListPreviewMetadataItem } from "./_view/Favicon";
-import { appFetch } from "./lib/fetch";
-import { px } from "./lib/unit";
-import { OpengraphMetadata } from "./_view/OpenGraph";
+import { FaviconPreview, IconListPreviewMetadataItem } from "./Favicon";
+import { appFetch } from "../lib/fetch";
+import { px } from "../lib/unit";
+import { OpengraphMetadata } from "./OpenGraph";
 import { cn } from "lazy-cn";
-import { getImageSizeFromResponse } from "./lib/image-size";
-import type { SiteMetadata } from "./page";
+import { getImageSizeFromResponse } from "../lib/image-size";
+import type { SiteMetadata } from "../page";
 
 export async function MetaInfoPanel(props: {
   metadata: SiteMetadata,
@@ -56,13 +56,21 @@ export async function MetaInfoPanel(props: {
             </MetaCardContent>
           </MetaCard>
         ),
+        tab(
+          "Robots",
+          <MetaCard>
+            <MetaCardContent key="r">
+              <MetadataRow data={metadata.general.robots} />
+            </MetaCardContent>
+          </MetaCard>
+        )
       ]}>
     </TabsWithContent>
   );
 }
 
 export function MetaCard({ className, ...props }: ComponentProps<"section">) {
-  return (<section className={cn("card fadeIn-0", className)} {...props} />)
+  return (<section className={cn("card fadeIn-0 overflow-hidden", className)} {...props} />)
 }
 function MetaCardContent({ className, ...props }: ComponentProps<"div">) {
   return (<div className={cn("card-content meta-info-grid fadeBlurIn-100", className)} {...props} />)

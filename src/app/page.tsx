@@ -3,8 +3,7 @@ import { getMetadataValues, fetchRoot } from "./lib/get-metadata";
 import { parseUrlFromQuery } from "./lib/parse-url";
 import type { SearchParamsContext } from "./lib/next-types";
 import { getResolvedMetadata } from "./lib/get-metadata-field-data";
-import { MetaCard, MetaInfoPanel } from "./page.meta-info";
-import { LinkPreviewPanel } from "./page.link-preview";
+import { MetaCard, MetaInfoPanel } from "./_view/MetaInfo";
 import { cn } from "lazy-cn";
 import { getVersion } from "./lib/version";
 import { ThemeSwitcher } from "./theme-switch";
@@ -13,6 +12,7 @@ import { RecentSuggestions } from "./_inputs/InputSuggestions";
 import { changelog } from "../../changelog"
 import ErrorCard from "./module/error/ErrorCard";
 import { getUserSettings } from "./lib/get-settings";
+import { LinkPreviewPanel } from "./_view/LinkPreview";
 
 // Structure:
 // 
