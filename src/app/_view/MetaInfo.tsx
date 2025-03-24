@@ -21,7 +21,7 @@ export async function MetaInfoPanel(props: {
 
   return (
     <TabsWithContent
-      className="fadeInFromLeft-0"
+      className="fadeInFromLeft-0 self-start"
       id="info"
       tabs={[
         tab(
