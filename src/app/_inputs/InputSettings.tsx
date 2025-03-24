@@ -2,7 +2,7 @@ import { cn } from "lazy-cn";
 import type { ComponentProps } from "react";
 import { FormButton, MaterialSymbolsCloseRounded } from "./InputForm";
 import { TextArea } from "../lib/textarea";
-import type { UserSettings } from "../page";
+import type { UserSettings } from "../lib/get-settings";
 
 export function InputSettingModal(props: ComponentProps<"dialog">) {
   return (
